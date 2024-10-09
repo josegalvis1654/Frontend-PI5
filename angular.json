@@ -27,20 +27,25 @@
               }
             ],
             "styles": [
-              "public/styles.css",
-              "public/sb-admin-2.css",
+              
+
+              "public/css/bootstrap.min.css",
+              "public/css/demo.css",
+              
+              
+              
+              "public/css/sb-admin-2.css",
               "public/css/sb-admin-2.min.css",
               "public/css/style.css",
-              "public/vendor/fontawesome-free/css/all.min.css",
-              "public/css/bootstrap.min.css"
+              "public/vendor/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              "public/js/sb-admin-2.js",
-              "public/js/sb-admin-2.min.js",
-              "public/js/popper.js",
-              "public/js/main.js",
+              "public/js/bootstrap.min.js",
               "public/js/jquery.min.js",
-              "public/js/bootstrap.min.js"
+              "public/js/main.js",
+              "public/js/popper.js",
+              "public/js/sb-admin-2.js",
+              "public/js/sb-admin-2.min.js"
               
             ]
           },
@@ -98,21 +103,24 @@
               }
             ],
             "styles": [
-              "public/styles.css",
-              "public/sb-admin-2.css",
+              "public/css/bootstrap.min.css",
+              "public/css/demo.css",
+              
+              
+              
+              "public/css/sb-admin-2.css",
               "public/css/sb-admin-2.min.css",
               "public/css/style.css",
-              "public/vendor/fontawesome-free/css/all.min.css",
-              "public/css/bootstrap.min.css"
+              "public/vendor/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              
-              "public/js/sb-admin-2.js",
-              "public/js/sb-admin-2.min.js",
-              "public/js/popper.js",
-              "public/js/main.js",
+              "public/js/bootstrap.min.js",
               "public/js/jquery.min.js",
-              "public/js/bootstrap.min.js"
+              "public/js/main.js",
+              "public/js/popper.js",
+              "public/js/sb-admin-2.js",
+              "public/js/sb-admin-2.min.js"
+              
             ]
           }
         }

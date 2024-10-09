@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './guardar-producto.component.html',
   styleUrl: './guardar-producto.component.css'
 })
-export class GuardarProductoComponent {
+export default class GuardarProductoComponent {
 
 }

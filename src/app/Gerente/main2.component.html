@@ -1,6 +1,4 @@
 
-
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -29,69 +27,67 @@
             <div class="sidebar-heading">
                 ¿Que deseas hacer hoy?
             </div>
-            
-            <!-- Nav Item - Tables -->
+
             <li class="nav-item">
-                <a class="nav-link" href="ConsultarLotes" (click)="page()">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <span>Consultar Lotes</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Lotes</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Deseas:</h6>
+                        <a class="collapse-item" href="GuardarLotes" routerLink="GuardarLotes">Nuevo
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </a>
+                        <a class="collapse-item" href="ModificarLotes" routerLink="ModificarLotes">Modificar
+                            <i class="fas fa-fw fa-wrench"></i>
+                        </a>
+                        <a class="collapse-item" href="ConsultarLotes" routerLink="ConsultarLotes">Consultar
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                        
+                    </div>
+                </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Producto</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Deseas:</h6>
+                        <a class="collapse-item" href="GuardarProducto" routerLink="GuardarProducto">Nuevo
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </a>
+                        <a class="collapse-item" href="ModificarProducto" routerLink="ModificarProducto">Modificar
+                            <i class="fas fa-fw fa-wrench"></i>
+                        </a>
+                        <a class="collapse-item" href="ConsultarProducto" routerLink="ConsultarProducto">Consultar
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </li>       
   
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="ConsultarProveedor">
+                <a class="nav-link" href="ConsultarProveedor" routerLink="ConsultarProveedor">
                     <i class="fa fa-search" aria-hidden="true"></i>
                     <span>Consultar Proveedores</span></a>
             </li>
-  
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="ConsultarProducto">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <span>Consultar Producto</span></a>
-            </li>
-
-            
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="ModificarProducto" >
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Modificar Producto</span>
-                </a>
-            </li>
-  
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="ModificarLote">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Modificar Lote</span></a>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="GuardarProducto" >
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    <span>Guardar Producto</span>
-                </a>
-                
-            </li>
-  
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="GuardarLote" >
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    <span>Guardar Nuevo Lote</span>
-                </a>
-            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="GenerarInforme">
+                <a class="nav-link" href="GenerarInforme" routerLink="GenerarInforme">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Generar Informe Inventario</span></a>
             </li>
-  
+
         </ul>
         <!-- End of Sidebar -->
   
@@ -105,21 +101,16 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
   
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    
   
                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <h4>Frutopia</h4>
+                        Frutopia
                     </form>
   
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-  
-                        
-                        
   
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -133,7 +124,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Centro Control Alertas
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
@@ -168,25 +159,21 @@
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Todas las Alerts</a>
                             </div>
                         </li>
-  
-                        
-  
+
                         <div class="topbar-divider d-none d-sm-block"></div>
   
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre de la persona</span>
-                                <img class="img-profile rounded-circle"
-                                    src="undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Gerente</span>
+                                <img class="img-profile rounded-circle" src="undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
@@ -196,7 +183,7 @@
                                     Configuracion
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar Sesion
                                 </a>
@@ -211,15 +198,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
   
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-  
+                    <router-outlet/>
+                    
                     <!-- Content Row -->
                     
+  
   
                     <!-- Content Row -->
   
@@ -235,7 +218,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Angel,Jose y Suarez 2024</span>
                     </div>
                 </div>
             </footer>
@@ -258,34 +241,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Listo Para Salir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="">Cerrar Sesion</a>
                 </div>
             </div>
         </div>
     </div>
   
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-  
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-  
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-  
+

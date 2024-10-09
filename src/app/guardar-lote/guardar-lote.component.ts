@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './guardar-lote.component.html',
   styleUrl: './guardar-lote.component.css'
 })
-export class GuardarLoteComponent {
+export default class GuardarLoteComponent {
 
 }

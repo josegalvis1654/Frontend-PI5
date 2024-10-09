@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './modificar-proveedor.component.html',
   styleUrl: './modificar-proveedor.component.css'
 })
-export class ModificarProveedorComponent {
+export default class ModificarProveedorComponent {
 
 }

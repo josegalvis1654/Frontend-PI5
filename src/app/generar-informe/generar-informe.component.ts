@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './generar-informe.component.html',
   styleUrl: './generar-informe.component.css'
 })
-export class GenerarInformeComponent {
+export default class GenerarInformeComponent {
 
 }

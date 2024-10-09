@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './modificar-lote.component.html',
   styleUrl: './modificar-lote.component.css'
 })
-export class ModificarLoteComponent {
+export default class ModificarLoteComponent {
 
 }

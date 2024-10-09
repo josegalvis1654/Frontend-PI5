@@ -2455,11 +2455,11 @@ fieldset:disabled a.btn {
       box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5); }
 
 .btn-link {
-  font-weight: 400;
-  color: #007bff;
+  font-weight: 100;
+  color: #fff;
   text-decoration: none; }
   .btn-link:hover {
-    color: #0056b3;
+    color: #0ff;
     text-decoration: underline; }
   .btn-link:focus, .btn-link.focus {
     text-decoration: underline;
@@ -8212,7 +8212,7 @@ h1, h2, h3, h4, h5,
     color: #000;
     font-weight: 700; }
   .form-group a {
-    color: black; }
+    color: #000; }
 
 .form-control {
   height: 48px;
@@ -8313,9 +8313,9 @@ h1, h2, h3, h4, h5,
 
 /* Style the checkmark/indicator */
 .checkbox-primary {
-  color: #000 }
+  color: #000; }
   .checkbox-primary input:checked ~ .checkmark:after {
-    color: #e3b04b; }
+    color: #03b38c; }
 
 .btn {
   cursor: pointer;
@@ -8326,8 +8326,8 @@ h1, h2, h3, h4, h5,
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #7ed772 !important;
-    border: 1px solid #7ed772 !important;
+    background: #28b463 !important;
+    border: 1px solid #28b463 !important;
     color: #fff !important; }
     .btn.btn-primary:hover {
       border: 1px solid #e3b04b;
