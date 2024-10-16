@@ -13,7 +13,7 @@ export class LoginComponent {
 
   }
   ingresar(){
-  this.router.navigateByUrl("Gerente");
+  this.router.navigateByUrl("Admin");
   
   }
   }

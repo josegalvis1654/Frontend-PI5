@@ -10466,6 +10466,9 @@ a:focus {
 
 .sidebar .sidebar-brand .sidebar-brand-text {
   display: none;
+  width: 50px;
+  height: 100px;
+  
 }
 
 .sidebar hr.sidebar-divider {
@@ -10564,6 +10567,8 @@ a:focus {
   }
   .sidebar .sidebar-brand .sidebar-brand-text {
     display: inline;
+    width: 50px;
+    height: 100px;
   }
   .sidebar .sidebar-heading {
     text-align: left;
@@ -10619,6 +10624,8 @@ a:focus {
   }
   .sidebar.toggled .sidebar-brand .sidebar-brand-text {
     display: none;
+    width: 50px;
+    height: 100px;
   }
   .sidebar.toggled .sidebar-heading {
     text-align: center;
