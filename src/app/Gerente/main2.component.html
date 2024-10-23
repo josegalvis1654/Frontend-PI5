@@ -7,7 +7,7 @@
   
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Gerente"> 
-                <div class="sidebar-brand-text mx-3">logo</div>
+                <div class="LogoImg"><img src="LogoF.png" width="130px" height="110px"></div>
             </a>
   
             <!-- Divider -->
@@ -32,7 +32,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="GuardarLotes" routerLink="GuardarLotes">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-archive" aria-hidden="true"></i>
                     <span>Lotes</span></a>
             </li>
 
@@ -40,14 +40,14 @@
             
             <li class="nav-item">
                 <a class="nav-link" href="GuardarProducto" routerLink="GuardarProducto">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa-solid fa-apple-whole"></i>
                     <span>Producto</span></a>
             </li>
   
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="ConsultarProveedor" routerLink="ConsultarProveedor">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-user" aria-hidden="true"></i>
                     <span>Consultar Proveedores</span></a>
             </li>
 
@@ -69,15 +69,13 @@
   
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <h4>Frutopia</h4>
   
                     <!-- Sidebar Toggle (Topbar) -->
                     
   
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        Frutopia
-                    </form>
+                    
   
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -148,10 +146,6 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Configuracion
-                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -185,13 +179,49 @@
             <!-- End of Main Content -->
   
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Angel,Jose y Suarez 2024</span>
+            <footer class="Pie-pagina">
+                <!-- Primer parte del footer -->
+                    <div class="DIVISION">
+                        <!-- Contenedores de los footer -->
+                        <div class="box">
+                            <!-- Contenedor de la imagen del logo -->
+                            <figure>
+                                <img src="LogoF.png" alt="Logo-foo">  <!-- Logo de la pagina -->              
+                            </figure>
+                        </div>
+                        <div class="box">
+                            <!-- Informacion de la pagina -->
+                            <h2>SOBRE NOSOTROS</h2>
+                            <P>"Somos un fruver para la familia que estamos localizados en floridablanca ven y disfruta de todos nuestros Productos"</P>                   
+                        </div>
+                        <div class="box">
+                            <!-- Informacion de Contacto  -->
+                            <h2>CONTACTO</h2>
+                            <ul>
+                                <li>Cl. 9 #23-55 UDI</li> <!-- Direccion del contacto -->
+                                <li>Bucaramanga, Colombia</li> <!-- Ciudad y pais de contacto -->
+                                <li>esuarez14-udi.edu.co</li>  <!-- Correo de contacto -->
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h2>SIGUENOS</h2>
+                            <!-- Contenedor de las redes sociales -->
+                            <div class="RED-SOCIAL">
+                                <!-- Iconos de las Redes Sociales -->
+                                <a href="https://www.facebook.com" class="icono"><i class="fab fa-facebook-f"></i></a> <!-- Icono de facebook -->
+                                <a href="https://www.instagram.com" class="icono"><i class="fab fa-instagram"></i></a> <!-- Icono de Instagran -->
+                                <a href="https://web.whatsapp.com/" class="icono"><i class="fab fa-whatsapp"></i></a> <!-- Icono de Whatsapp -->
+                                <a href="https://www.tiktok.com/" class="icono"><i class="fa-brands fa-tiktok"></i></a> <!-- Icono de tiktok -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </footer>
+                    <div class="DIVISION2">
+                        <small>
+                            <!-- Derechos Reservados de la pagina  -->                   
+                            <p>&copy; 2024 <b>Frutopia</b> Hecho por: Eduar Suarez,Angel Rueda y Jose Galvis</p>
+                        </small>
+                    </div>
+                </footer>
             <!-- End of Footer -->
   
         </div>

@@ -24,5 +24,4 @@ export  default class ConsultarLotesComponent {
       return obj.columna1.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
     });
   }
-  
 }

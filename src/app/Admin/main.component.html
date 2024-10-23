@@ -1,5 +1,4 @@
 
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -9,7 +8,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Admin">
                 
-                <div class="sidebar-brand-text mx-3"><img src=""></div>
+                <div class="LogoImg"><img src="LogoF.png" width="130px" height="110px"></div>
             </a>
   
             <!-- Divider -->
@@ -29,6 +28,12 @@
             <div class="sidebar-heading">
                 ¿Que deseas hacer hoy?
             </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="GuardarProveedor" routerLink="GuardarProveedor">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>Proveedores</span></a>
+            </li> 
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -50,16 +55,6 @@
   
             
 
-            <li class="nav-item">
-                <a class="nav-link" href="GuardarProveedor" routerLink="GuardarProveedor">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <span>Proveedores</span></a>
-            </li>
-  
-            
-
-            
-  
             
   
             <!-- Nav Item - Tables -->
@@ -69,8 +64,6 @@
                     <span>Generar Informe Inventario</span></a>
             </li>
 
-            
-  
         </ul>
         <!-- End of Sidebar -->
   
@@ -155,7 +148,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nombre de la persona</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -165,10 +158,6 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Configuracion
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -198,13 +187,49 @@
             <!-- End of Main Content -->
   
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Angel,Jose,Eduar 2024</span>
+                <footer class="Pie-pagina">
+                <!-- Primer parte del footer -->
+                    <div class="DIVISION">
+                        <!-- Contenedores de los footer -->
+                        <div class="box">
+                            <!-- Contenedor de la imagen del logo -->
+                            <figure>
+                                <img src="LogoF.png" alt="Logo-foo">  <!-- Logo de la pagina -->              
+                            </figure>
+                        </div>
+                        <div class="box">
+                            <!-- Informacion de la pagina -->
+                            <h2>SOBRE NOSOTROS</h2>
+                            <P>"Somos un fruver para la familia que estamos localizados en floridablanca ven y disfruta de todos nuestros Productos"</P>                   
+                        </div>
+                        <div class="box">
+                            <!-- Informacion de Contacto  -->
+                            <h2>CONTACTO</h2>
+                            <ul>
+                                <li>Cl. 9 #23-55 UDI</li> <!-- Direccion del contacto -->
+                                <li>Bucaramanga, Colombia</li> <!-- Ciudad y pais de contacto -->
+                                <li>esuarez14-udi.edu.co</li>  <!-- Correo de contacto -->
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h2>SIGUENOS</h2>
+                            <!-- Contenedor de las redes sociales -->
+                            <div class="RED-SOCIAL">
+                                <!-- Iconos de las Redes Sociales -->
+                                <a href="https://www.facebook.com" class="icono"><i class="fab fa-facebook-f"></i></a> <!-- Icono de facebook -->
+                                <a href="https://www.instagram.com" class="icono"><i class="fab fa-instagram"></i></a> <!-- Icono de Instagran -->
+                                <a href="https://web.whatsapp.com/" class="icono"><i class="fab fa-whatsapp"></i></a> <!-- Icono de Whatsapp -->
+                                <a href="https://www.tiktok.com/" class="icono"><i class="fa-brands fa-tiktok"></i></a> <!-- Icono de tiktok -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </footer>
+                    <div class="DIVISION2">
+                        <small>
+                            <!-- Derechos Reservados de la pagina  -->                   
+                            <p>&copy; 2024 <b>Frutopia</b> Hecho por: Eduar Suarez, Angel Rueda y Jose Galvis.</p>
+                        </small>
+                    </div>
+                </footer>
             <!-- End of Footer -->
   
         </div>
@@ -237,21 +262,4 @@
             </div>
         </div>
     </div>
-  
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-  
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-  
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-  
+
