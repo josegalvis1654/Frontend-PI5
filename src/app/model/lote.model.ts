@@ -1,6 +1,6 @@
 export class Lote {
 
-    id:string;
+    id:number;
     idProducto:string;
     FechaEntrega:string;
     Estado:string;
@@ -9,7 +9,7 @@ export class Lote {
     Proveedor:string;
 
     constructor(){
-        this.id='';
+        this.id=1;
         this.idProducto= '';
         this.FechaEntrega='';
         this.Estado='';
@@ -21,7 +21,7 @@ export class Lote {
 
 export class Proveedor{
     
-    Id:string;
+    Id:number;
     nit:string;
     razonSocial:string;
     representanteLegal:string;
@@ -30,7 +30,7 @@ export class Proveedor{
     vehiculoAsociado:string;
 
     constructor(){
-        this.Id='';
+        this.Id=1;
         this.nit= '';
         this.razonSocial='';
         this.representanteLegal='';
@@ -49,7 +49,7 @@ export class Producto{
 
     constructor(){
         this.Id='';
-        this.nombre= '';
+        this.nombre= 'Pera';
         this.tipo='';
         this.ubicacion='';
     }

@@ -1,110 +1,118 @@
-import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Lote } from '../model/lote.model';
+import { LoteService } from '../services/lote.service'; // Importa el servicio
 
 @Component({
   selector: 'app-guardar-lote',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './guardar-lote.component.html',
   styleUrl: './guardar-lote.component.css'
 })
-export default class GuardarLoteComponent {
-
-  loteForm:FormGroup =new FormGroup({});
-
-  employeeObj: Lote= new Lote();
-
-  employeeList: Lote[] = [];
-
-  action: string;
-
-  filtrar:string;
+export default class GuardarLoteComponent implements OnInit {
+  loteForm: FormGroup = new FormGroup({});
+  loteObj: Lote = new Lote();
+  loteList: Lote[] = [];
+  action: string = "1";
+  filtrar: string = '';
   infomostrar: any;
-  constructor(){
+
+  constructor(private loteService: LoteService) {
     this.createForm();
-    
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.employeeList = parseData;
-      
-    }
-    this.filtrar='';
-    this.action = "1";
-    this.infomostrar = this.employeeList;
   }
 
-  
-  createForm(){
-    this.loteForm=new FormGroup({
-      id:new FormControl(this.employeeObj.id),
-      idProducto:new FormControl(this.employeeObj.idProducto),
-      FechaEntrega:new FormControl(this.employeeObj.FechaEntrega),
-      Estado:new FormControl(this.employeeObj.Estado),
-      Cantidad:new FormControl(this.employeeObj.Cantidad),
-      FechaCaducidad:new FormControl(this.employeeObj.FechaCaducidad),
-      Proveedor:new FormControl(this.employeeObj.Proveedor),
-    })
+  ngOnInit(): void {
+    this.cargarLotes();
   }
 
-  filter(event: any){
-    this.infomostrar=this.employeeList.filter((obj:any)=>{
-      return obj.idProducto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+  createForm() {
+    this.loteForm = new FormGroup({
+      id: new FormControl(this.loteObj.id),
+      idProducto: new FormControl(this.loteObj.idProducto),
+      FechaEntrega: new FormControl(this.loteObj.FechaEntrega),
+      Estado: new FormControl(this.loteObj.Estado),
+      Cantidad: new FormControl(this.loteObj.Cantidad),
+      FechaCaducidad: new FormControl(this.loteObj.FechaCaducidad),
+      Proveedor: new FormControl(this.loteObj.Proveedor),
     });
   }
 
-  deleteInfo(event:any, columna1:string){
-    if(confirm("Deseas eliminar este dato?"))
-    {
+  cargarLotes() {
+    this.loteService.obtenerLotes().subscribe(
+      (lotes) => {
+        this.loteList = lotes;
+        this.infomostrar = this.loteList;
+      },
+      (error) => {
+        console.error('Error al cargar lotes', error);
+      }
+    );
+  }
 
-      this.employeeList= this.employeeList.filter((obj:any)=>{
-        return obj.idProducto != columna1;
-      });
-      this.infomostrar = this.employeeList;
+  Guardar() {
+    if (this.action === "1") {
+      this.loteService.crearLote(this.loteForm.value).subscribe(
+        (response) => {
+          this.loteList.unshift(response);
+          this.infomostrar = this.loteList;
+          this.loteObj = new Lote();
+          this.createForm();
+        },
+        (error) => {
+          console.error('Error al crear lote', error);
+        }
+      );
+    } else {
+      this.Modificar();
     }
   }
 
-  Guardar(){
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.loteForm.controls['id'].setValue(parseData.length +1);
-      this.employeeList.unshift(this.loteForm.value);
-    }
-    else{
-      this.employeeList.unshift(this.loteForm.value);
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
-    this.employeeObj = new Lote();
-    this.infomostrar = this.employeeList;
-    this.createForm()
-  }
-
-  Editar(item:Lote){
-    this.employeeObj =item;
+  Editar(item: Lote) {
+    this.loteObj = item;
     this.createForm();
     this.setAction("2");
   }
 
-  setAction(action: string){
+  setAction(action: string) {
     this.action = action;
   }
-  
-  Modificar(){
-    const record = this.employeeList.find(m=>m.id == this.loteForm.controls['id'].value);
-    if(record != undefined){
-      record.idProducto = this.loteForm.controls['idProducto'].value;
-      record.FechaEntrega = this.loteForm.controls['FechaEntrega'].value;
-      record.Estado = this.loteForm.controls['Estado'].value;
-      record.Cantidad = this.loteForm.controls['Cantidad'].value;
-      record.FechaCaducidad = this.loteForm.controls['FechaCaducidad'].value;
-      record.Proveedor = this.loteForm.controls['Proveedor'].value;
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
-    this.employeeObj = new Lote();
-    this.createForm();
+
+  Modificar() {
+    this.loteService.actualizarLote(this.loteForm.controls['id'].value, this.loteForm.value).subscribe(
+      (response) => {
+        const index = this.loteList.findIndex(l => l.id === response.id);
+        if (index !== -1) {
+          this.loteList[index] = response;
+        }
+        this.infomostrar = this.loteList;
+        this.loteObj = new Lote();
+        this.createForm();
+      },
+      (error) => {
+        console.error('Error al actualizar lote', error);
+      }
+    );
   }
 
+  deleteInfo(event: any, id: number) {
+    if (confirm("Deseas eliminar este dato?")) {
+      this.loteService.eliminarLote(id).subscribe(
+        () => {
+          this.loteList = this.loteList.filter((obj) => obj.id !== id);
+          this.infomostrar = this.loteList;
+        },
+        (error) => {
+          console.error('Error al eliminar lote', error);
+        }
+      );
+    }
+  }
+
+  filter(event: any) {
+    this.infomostrar = this.loteList.filter((obj) => {
+      return obj.idProducto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    });
+  }
 }
+
