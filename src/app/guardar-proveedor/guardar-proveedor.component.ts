@@ -24,7 +24,11 @@ export default class GuardarProveedorComponent implements OnInit {
     this.filtrar = '';
     this.action = "1";
   }
-
+  filter(event: any){
+    this.infomostrar=this.employeeList.filter((obj:any)=>{
+      return obj.nit.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    });
+  }
   ngOnInit() {
     this.cargarProveedores();
   }
@@ -43,13 +47,13 @@ export default class GuardarProveedorComponent implements OnInit {
 
   createForm() {
     this.ProveedorForm = new FormGroup({
-      Id: new FormControl(this.employeeObj.Id),
+      Id: new FormControl(this.employeeObj.id),
       nit: new FormControl(this.employeeObj.nit),
-      razonSocial: new FormControl(this.employeeObj.razonSocial),
-      representanteLegal: new FormControl(this.employeeObj.representanteLegal),
-      direccion: new FormControl(this.employeeObj.direccion),
+      razonSocial: new FormControl(this.employeeObj.razon_social),
+      representanteLegal: new FormControl(this.employeeObj.representante_legal),
+      direccion: new FormControl(this.employeeObj.direcion),
       telefono: new FormControl(this.employeeObj.telefono),
-      vehiculoAsociado: new FormControl(this.employeeObj.vehiculoAsociado),
+      vehiculoAsociado: new FormControl(this.employeeObj.vehiculo_asociado),
     });
   }
 
@@ -83,7 +87,7 @@ export default class GuardarProveedorComponent implements OnInit {
     this.proveedoresService.updateProveedor(proveedorId, this.ProveedorForm.value).subscribe(
       (response) => {
         console.log('Proveedor actualizado con éxito:', response);
-        const index = this.employeeList.findIndex(m => m.Id === proveedorId);
+        const index = this.employeeList.findIndex(m => m.id === proveedorId);
         if (index !== -1) {
           this.employeeList[index] = response;
         }
@@ -99,7 +103,7 @@ export default class GuardarProveedorComponent implements OnInit {
 
   deleteInfo(event: any, columna1: string) {
     if (confirm("¿Deseas eliminar este dato?")) {
-      const proveedorId = this.employeeList.find((p) => p.nit === columna1)?.Id;
+      const proveedorId = this.employeeList.find((p) => p.nit === columna1)?.id;
       if (proveedorId) {
         this.proveedoresService.deleteProveedor(proveedorId).subscribe(
           () => {

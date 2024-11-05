@@ -29,17 +29,16 @@ export default class GuardarLoteComponent implements OnInit {
   createForm() {
     this.loteForm = new FormGroup({
       id: new FormControl(this.loteObj.id),
-      idProducto: new FormControl(this.loteObj.idProducto),
-      FechaEntrega: new FormControl(this.loteObj.FechaEntrega),
-      Estado: new FormControl(this.loteObj.Estado),
-      Cantidad: new FormControl(this.loteObj.Cantidad),
-      FechaCaducidad: new FormControl(this.loteObj.FechaCaducidad),
-      Proveedor: new FormControl(this.loteObj.Proveedor),
+      idProducto: new FormControl(this.loteObj.producto),
+      FechaEntrega: new FormControl(this.loteObj.fechaentrega),
+      Estado: new FormControl(this.loteObj.estado),
+      Cantidad: new FormControl(this.loteObj.cantidad),
+      FechaCaducidad: new FormControl(this.loteObj.fechacaducidad),
     });
   }
 
   cargarLotes() {
-    this.loteService.obtenerLotes().subscribe(
+    this.loteService.getLotes().subscribe(
       (lotes) => {
         this.loteList = lotes;
         this.infomostrar = this.loteList;
@@ -111,7 +110,7 @@ export default class GuardarLoteComponent implements OnInit {
 
   filter(event: any) {
     this.infomostrar = this.loteList.filter((obj) => {
-      return obj.idProducto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+      return obj.id.toString().toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
     });
   }
 }

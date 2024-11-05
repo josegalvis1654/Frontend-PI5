@@ -28,7 +28,7 @@ export default class GuardarProductoComponent {
 
   createForm() {
     this.ProductoForm = new FormGroup({
-      Id: new FormControl(this.employeeObj.Id), // Usa el tipo string para Id
+      Id: new FormControl(this.employeeObj.id), // Usa el tipo string para Id
       nombre: new FormControl(this.employeeObj.nombre),
       tipo: new FormControl(this.employeeObj.tipo),
       ubicacion: new FormControl(this.employeeObj.ubicacion),
@@ -53,13 +53,13 @@ export default class GuardarProductoComponent {
     });
   }
 
-  deleteInfo(event: any, columna1: string) {
+  deleteInfo(event: any, nombre: string) {
     if (confirm("Deseas eliminar este dato?")) {
-        const productoAEliminar = this.employeeList.find((obj: Producto) => obj.nombre === columna1);
+        const productoAEliminar = this.employeeList.find((obj: Producto) => obj.nombre === nombre);
         if (productoAEliminar) {
-            this.productoService.eliminar(Number(productoAEliminar.Id)).subscribe( // Convierte a number aquí si es necesario
+            this.productoService.eliminarProducto(Number(productoAEliminar.id)).subscribe(
                 () => {
-                    this.employeeList = this.employeeList.filter((obj: Producto) => obj.nombre !== columna1);
+                    this.employeeList = this.employeeList.filter((obj: Producto) => obj.nombre !== nombre);
                     this.infomostrar = this.employeeList;
                 },
                 (error: HttpErrorResponse) => {
@@ -68,25 +68,30 @@ export default class GuardarProductoComponent {
             );
         }
     }
-}
+  }
 
   Guardar() {
-    this.productoService.crear(this.ProductoForm.value).subscribe(
-      (nuevoProducto: Producto) => {
-        this.employeeList.unshift(nuevoProducto); // Agrega el nuevo producto a la lista
-        this.infomostrar = this.employeeList;
-        this.employeeObj = new Producto();
-        this.createForm();
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error al guardar el producto:', error);
-      }
-    );
+    if (this.ProductoForm.valid) {
+      this.productoService.crearProducto(this.ProductoForm.value).subscribe(
+        (nuevoProducto: Producto) => {
+          this.employeeList.unshift(nuevoProducto); // Agrega el nuevo producto a la lista
+          this.infomostrar = this.employeeList;
+          this.employeeObj = new Producto();
+          this.createForm();
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error al guardar el producto:', error);
+        }
+      );
+    } else {
+      console.error('Formulario inválido');
+    }
   }
 
   Editar(item: Producto) {
     this.employeeObj = item;
-    this.createForm();
+    this.createForm(); // Re-crea el formulario con los datos del producto a editar
+    this.ProductoForm.patchValue(item); // Rellena el formulario con los datos del producto
     this.setAction("2");
   }
 
@@ -96,9 +101,9 @@ export default class GuardarProductoComponent {
 
   Modificar() {
     const id = this.ProductoForm.controls['Id'].value; // Se asegura que Id sea un string
-    this.productoService.actualizar(Number(id), this.ProductoForm.value).subscribe( // Convertir a número si la API lo requiere
+    this.productoService.actualizarProducto(Number(id), this.ProductoForm.value).subscribe(
       (productoActualizado: Producto) => {
-        const index = this.employeeList.findIndex(m => m.Id === id);
+        const index = this.employeeList.findIndex(m => m.id === id);
         if (index !== -1) {
           this.employeeList[index] = productoActualizado; // Actualiza el producto en la lista
           this.infomostrar = this.employeeList;
@@ -112,3 +117,4 @@ export default class GuardarProductoComponent {
     );
   }
 }
+

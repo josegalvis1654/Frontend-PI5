@@ -1,6 +1,5 @@
-
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../model/lote.model';
 
@@ -8,31 +7,31 @@ import { Producto } from '../model/lote.model';
   providedIn: 'root'
 })
 export class ProductoService {
-  private apiUrl = 'http://localhost:8000/api/productos/'; // URL de tu API Django
+  private apiUrl = 'http://localhost:8001/api/productos/'; // Asegúrate de que esta URL coincida con tu configuración de Django
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
-
-  // Método para obtener todos los productos
+  // Obtener todos los productos
   getProductos(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl);
   }
 
-  // Método para crear un producto
-  crear(producto: Producto): Observable<Producto> {
-    return this.http.post<Producto>(this.apiUrl, producto, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    });
+  // Obtener un producto por ID
+  getProducto(id: number): Observable<Producto> {
+    return this.http.get<any>(`${this.apiUrl}${id}/`);
   }
 
-  // Método para actualizar un producto
-  actualizar(id: number, producto: Producto): Observable<Producto> {
-    return this.http.put<Producto>(`${this.apiUrl}${id}/`, producto, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    });
+  // Crear un nuevo producto
+  crearProducto(Producto: Producto): Observable<Producto> {
+    return this.http.post<any>(this.apiUrl, Producto);
   }
 
-  // Método para eliminar un producto
-  eliminar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}${id}/`);
+  // Actualizar un producto
+  actualizarProducto(id: number, Producto: Producto): Observable<Producto> {
+    return this.http.put<any>(`${this.apiUrl}${id}/`, Producto);
+  }
+
+  // Eliminar un producto
+  eliminarProducto(id: number): Observable<Producto> {
+    return this.http.delete<any>(`${this.apiUrl}${id}/`);
   }
 }
