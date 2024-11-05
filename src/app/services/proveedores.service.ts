@@ -7,10 +7,7 @@ import { Proveedor } from '../model/lote.model';
   providedIn: 'root',
 })
 export class ProveedoresService {
-  // Define la URL base de la API de Django (ajusta esta URL según tu configuración)
-  private apiUrl = 'http://localhost:8000/api/proveedores/';
-
-  // Constructor para inyectar HttpClient
+  private apiUrl = 'http://localhost:8002/api/proveedores/';
   constructor(private http: HttpClient) {}
 
   // Método para obtener todos los proveedores
@@ -18,22 +15,18 @@ export class ProveedoresService {
     return this.http.get<Proveedor[]>(this.apiUrl);
   }
 
+  getProducto(id: number): Observable<Proveedor> {
+    return this.http.get<any>(`${this.apiUrl}${id}/`);
+  }
+
   // Método para crear un nuevo proveedor
   createProveedor(proveedor: Proveedor): Observable<Proveedor> {
-    return this.http.post<Proveedor>(this.apiUrl, proveedor, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    });
+    return this.http.post<any>(this.apiUrl, proveedor);
   }
 
   // Método para actualizar un proveedor existente
   updateProveedor(id: number, proveedor: Proveedor): Observable<Proveedor> {
-    return this.http.put<Proveedor>(`${this.apiUrl}${id}/`, proveedor, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    });
+    return this.http.put<any>(`${this.apiUrl}${id}/`, proveedor);
   }
 
   // Método para eliminar un proveedor
