@@ -40,18 +40,18 @@ export default class GuardarLoteComponent {
   createForm(){
     this.loteForm=new FormGroup({
       id:new FormControl(this.employeeObj.id),
-      idProducto:new FormControl(this.employeeObj.idProducto),
-      FechaEntrega:new FormControl(this.employeeObj.FechaEntrega),
-      Estado:new FormControl(this.employeeObj.Estado),
-      Cantidad:new FormControl(this.employeeObj.Cantidad),
-      FechaCaducidad:new FormControl(this.employeeObj.FechaCaducidad),
-      Proveedor:new FormControl(this.employeeObj.Proveedor),
+      producto:new FormControl(this.employeeObj.producto),
+      fechaentrega:new FormControl(this.employeeObj.fechaentrega),
+      estado:new FormControl(this.employeeObj.estado),
+      cantidad:new FormControl(this.employeeObj.cantidad),
+      fechacaducidad:new FormControl(this.employeeObj.fechacaducidad),
+      
     })
   }
 
   filter(event: any){
     this.infomostrar=this.employeeList.filter((obj:any)=>{
-      return obj.idProducto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+      return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
     });
   }
 
@@ -60,7 +60,7 @@ export default class GuardarLoteComponent {
     {
 
       this.employeeList= this.employeeList.filter((obj:any)=>{
-        return obj.idProducto != columna1;
+        return obj.producto != columna1;
       });
       this.infomostrar = this.employeeList;
     }
@@ -95,12 +95,11 @@ export default class GuardarLoteComponent {
   Modificar(){
     const record = this.employeeList.find(m=>m.id == this.loteForm.controls['id'].value);
     if(record != undefined){
-      record.idProducto = this.loteForm.controls['idProducto'].value;
-      record.FechaEntrega = this.loteForm.controls['FechaEntrega'].value;
-      record.Estado = this.loteForm.controls['Estado'].value;
-      record.Cantidad = this.loteForm.controls['Cantidad'].value;
-      record.FechaCaducidad = this.loteForm.controls['FechaCaducidad'].value;
-      record.Proveedor = this.loteForm.controls['Proveedor'].value;
+      record.producto = this.loteForm.controls['producto'].value;
+      record.fechaentrega = this.loteForm.controls['fechaentrega'].value;
+      record.estado = this.loteForm.controls['estado'].value;
+      record.cantidad = this.loteForm.controls['cantidad'].value;
+      record.fechacaducidad = this.loteForm.controls['fechacaducidad'].value;
     }
     localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
     this.employeeObj = new Lote();

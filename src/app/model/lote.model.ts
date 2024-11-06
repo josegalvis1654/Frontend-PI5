@@ -1,56 +1,54 @@
 export class Lote {
 
-    id:string;
-    idProducto:string;
-    FechaEntrega:string;
-    Estado:string;
-    Cantidad:string;
-    FechaCaducidad:string;
-    Proveedor:string;
+    id:number;
+    producto:number;
+    fechaentrega:string;
+    estado:number;
+    cantidad:number;
+    fechacaducidad:string;
 
     constructor(){
-        this.id='';
-        this.idProducto= '';
-        this.FechaEntrega='';
-        this.Estado='';
-        this.Cantidad= '';
-        this.FechaCaducidad='';
-        this.Proveedor='';
+        this.id=0;
+        this.producto= 0;
+        this.fechaentrega='';
+        this.estado=0;
+        this.cantidad= 0;
+        this.fechacaducidad='';
     }
 }
 
 export class Proveedor{
     
-    Id:string;
+    id:number;
     nit:string;
-    razonSocial:string;
-    representanteLegal:string;
-    direccion:string;
-    telefono:string;
-    vehiculoAsociado:string;
+    razon_social:string;
+    representante_legal:string;
+    direcion:string;
+    telefono:number;
+    vehiculo_asociado:string;
 
     constructor(){
-        this.Id='';
+        this.id=0;
         this.nit= '';
-        this.razonSocial='';
-        this.representanteLegal='';
-        this.direccion= '';
-        this.telefono='';
-        this.vehiculoAsociado='';
+        this.razon_social='';
+        this.representante_legal='';
+        this.direcion= '';
+        this.telefono=0;
+        this.vehiculo_asociado='';
     }
 }
 
 export class Producto{
 
-    Id:string;
+    id:number;
     nombre:string;
-    tipo:string;
-    ubicacion:string;
+    tipo:number;
+    ubicacion:number;
 
     constructor(){
-        this.Id='';
+        this.id=0;
         this.nombre= '';
-        this.tipo='';
-        this.ubicacion='';
+        this.tipo=0;
+        this.ubicacion=0;
     }
 }

@@ -39,13 +39,13 @@ export default class GuardarProveedorComponent {
   
   createForm(){
     this.ProveedorForm=new FormGroup({
-      Id:new FormControl(this.employeeObj.Id),
+      id:new FormControl(this.employeeObj.id),
       nit:new FormControl(this.employeeObj.nit),
-      razonSocial:new FormControl(this.employeeObj.razonSocial),
-      representanteLegal:new FormControl(this.employeeObj.representanteLegal),
-      direccion:new FormControl(this.employeeObj.direccion),
+      razon_social:new FormControl(this.employeeObj.razon_social),
+      representante_legal:new FormControl(this.employeeObj.representante_legal),
+      direcion:new FormControl(this.employeeObj.direcion),
       telefono:new FormControl(this.employeeObj.telefono),
-      vehiculoAsociado:new FormControl(this.employeeObj.vehiculoAsociado),
+      vehiculo_asociado:new FormControl(this.employeeObj.vehiculo_asociado),
     })
   }
 
@@ -70,7 +70,7 @@ export default class GuardarProveedorComponent {
     const oldData= localStorage.getItem("EmpData");
     if(oldData != null){
       const parseData= JSON.parse(oldData);
-      this.ProveedorForm.controls['Id'].setValue(parseData.length +1);
+      this.ProveedorForm.controls['id'].setValue(parseData.length +1);
       this.employeeList.unshift(this.ProveedorForm.value);
     }
     else{
@@ -93,14 +93,14 @@ export default class GuardarProveedorComponent {
   }
   
   Modificar(){
-    const record = this.employeeList.find(m=>m.Id == this.ProveedorForm.controls['Id'].value);
+    const record = this.employeeList.find(m=>m.id == this.ProveedorForm.controls['id'].value);
     if(record != undefined){
       record.nit = this.ProveedorForm.controls['nit'].value;
-      record.razonSocial = this.ProveedorForm.controls['razonSocial'].value;
-      record.representanteLegal = this.ProveedorForm.controls['representanteLegal'].value;
-      record.direccion = this.ProveedorForm.controls['direccion'].value;
+      record.razon_social = this.ProveedorForm.controls['razon_social'].value;
+      record.representante_legal = this.ProveedorForm.controls['representante_legal'].value;
+      record.direcion = this.ProveedorForm.controls['direcion'].value;
       record.telefono = this.ProveedorForm.controls['telefono'].value;
-      record.vehiculoAsociado = this.ProveedorForm.controls['vehiculoAsociado'].value;
+      record.vehiculo_asociado = this.ProveedorForm.controls['vehiculo_asociado'].value;
     }
     localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
     this.employeeObj = new Proveedor();

@@ -39,7 +39,7 @@ export default class GuardarProductoComponent {
   
   createForm(){
     this.ProductoForm=new FormGroup({
-      Id:new FormControl(this.employeeObj.Id),
+      id:new FormControl(this.employeeObj.id),
       nombre:new FormControl(this.employeeObj.nombre),
       tipo:new FormControl(this.employeeObj.tipo),
       ubicacion:new FormControl(this.employeeObj.ubicacion),
@@ -67,7 +67,7 @@ export default class GuardarProductoComponent {
     const oldData= localStorage.getItem("EmpData");
     if(oldData != null){
       const parseData= JSON.parse(oldData);
-      this.ProductoForm.controls['Id'].setValue(parseData.length +1);
+      this.ProductoForm.controls['id'].setValue(parseData.length +1);
       this.employeeList.unshift(this.ProductoForm.value);
     }
     else{
@@ -90,9 +90,9 @@ export default class GuardarProductoComponent {
   }
   
   Modificar(){
-    const record = this.employeeList.find(m=>m.Id == this.ProductoForm.controls['id'].value);
+    const record = this.employeeList.find(m=>m.id == this.ProductoForm.controls['id'].value);
     if(record != undefined){
-      record.Id = this.ProductoForm.controls['Id'].value;
+      record.id = this.ProductoForm.controls['id'].value;
       record.nombre = this.ProductoForm.controls['nombre'].value;
       record.tipo = this.ProductoForm.controls['tipo'].value;
       record.ubicacion = this.ProductoForm.controls['ubicacion'].value;
