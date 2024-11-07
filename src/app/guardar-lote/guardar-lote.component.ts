@@ -2,6 +2,7 @@ import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Lote } from '../model/lote.model';
+import { LoteService } from '../services/lote.service';
 
 @Component({
   selector: 'app-guardar-lote',
@@ -11,18 +12,17 @@ import { Lote } from '../model/lote.model';
   styleUrl: './guardar-lote.component.css'
 })
 export default class GuardarLoteComponent {
-
   loteForm:FormGroup =new FormGroup({});
-
+  
   employeeObj: Lote= new Lote();
-
+  
   employeeList: Lote[] = [];
-
+  
   action: string;
-
+  
   filtrar:string;
   infomostrar: any;
-  constructor(){
+  constructor(private loteService:LoteService){
     this.createForm();
     
     const oldData= localStorage.getItem("EmpData");
@@ -35,7 +35,12 @@ export default class GuardarLoteComponent {
     this.action = "1";
     this.infomostrar = this.employeeList;
   }
-
+  
+  ngOnInint(){
+    this.loteService.getLotes().subscribe((data)=>{
+      this.infomostrar =data;
+    })
+  }
   
   createForm(){
     this.loteForm=new FormGroup({
@@ -50,37 +55,42 @@ export default class GuardarLoteComponent {
   }
 
   filter(event: any){
-    this.infomostrar=this.employeeList.filter((obj:any)=>{
-      return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    this.loteService.getLotes().subscribe((data)=>{
+      this.infomostrar=this.employeeList.filter((obj:any)=>{
+        return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
     });
+  });
   }
 
-  deleteInfo(event:any, columna1:string){
+  deleteInfo(event:any, id:any){
     if(confirm("Deseas eliminar este dato?"))
     {
-
-      this.employeeList= this.employeeList.filter((obj:any)=>{
-        return obj.producto != columna1;
+      this.loteService.eliminarLote(id).subscribe(()=>{
+        this.infomostrar= this.infomostrar.filter((obj:any)=>{
+          return obj.producto != id;
+      })
       });
       this.infomostrar = this.employeeList;
     }
   }
 
-  Guardar(){
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.loteForm.controls['id'].setValue(parseData.length +1);
-      this.employeeList.unshift(this.loteForm.value);
-    }
-    else{
-      this.employeeList.unshift(this.loteForm.value);
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
-    this.employeeObj = new Lote();
-    this.infomostrar = this.employeeList;
-    this.createForm()
-  }
+  Guardar() {
+    this.loteService.crearLote(this.loteForm.value).subscribe({
+        next: (response:any) => {
+          console.log(response);
+            // Agregar el nuevo lote a la lista local con los datos de la respuesta
+            this.employeeList.unshift(response.lote);
+            this.employeeObj = new Lote(); // Reiniciar el formulario
+            this.infomostrar = this.employeeList; // Actualizar la vista
+            console.log(this.infomostrar)
+            this.createForm(); // Reiniciar el formulario para futuras entradas
+        },
+        error: (err) => {
+            console.error('Error al guardar el lote:', err);
+        }
+    });
+}
+
 
   Editar(item:Lote){
     this.employeeObj =item;
@@ -92,18 +102,31 @@ export default class GuardarLoteComponent {
     this.action = action;
   }
   
-  Modificar(){
-    const record = this.employeeList.find(m=>m.id == this.loteForm.controls['id'].value);
-    if(record != undefined){
-      record.producto = this.loteForm.controls['producto'].value;
-      record.fechaentrega = this.loteForm.controls['fechaentrega'].value;
-      record.estado = this.loteForm.controls['estado'].value;
-      record.cantidad = this.loteForm.controls['cantidad'].value;
-      record.fechacaducidad = this.loteForm.controls['fechacaducidad'].value;
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
-    this.employeeObj = new Lote();
-    this.createForm();
-  }
+  Modificar() {
+    const updatedData = {
+      id: this.loteForm.controls['id'].value,
+      producto: this.loteForm.controls['producto'].value,
+      fechaentrega: this.loteForm.controls['fechaentrega'].value,
+      estado: this.loteForm.controls['estado'].value,
+      cantidad: this.loteForm.controls['cantidad'].value,
+      fechacaducidad: this.loteForm.controls['fechacaducidad'].value,
+    };
+
+    this.loteService.actualizarLote(updatedData.id, updatedData).subscribe({
+        next: (response) => {
+            // Actualizar el registro en la lista local después de una respuesta exitosa
+            const record = this.employeeList.find(m => m.id === updatedData.id);
+            if (record) {
+                Object.assign(record, response); // Actualiza el objeto con los datos devueltos por el servidor
+            }
+            this.employeeObj = new Lote();
+            this.createForm(); // Reinicia el formulario
+        },
+        error: (err) => {
+            console.error('Error al modificar el lote:', err);
+        }
+    });
+}
+
 
 }

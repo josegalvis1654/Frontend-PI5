@@ -2,18 +2,18 @@ export class Lote {
 
     id:number;
     producto:number;
-    fechaentrega:string;
+    fechaentrega?:Date;
     estado:number;
     cantidad:number;
-    fechacaducidad:string;
+    fechacaducidad?:Date;
 
     constructor(){
         this.id=0;
         this.producto= 0;
-        this.fechaentrega='';
+        
         this.estado=0;
         this.cantidad= 0;
-        this.fechacaducidad='';
+        
     }
 }
 

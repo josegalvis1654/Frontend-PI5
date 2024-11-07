@@ -24,8 +24,8 @@ export class LoteService {
   }
 
   // Crear un nuevo lote
-  crearLote(lote: Lote): Observable<Lote> {
-    return this.http.post<Lote>(this.apiUrl, lote).pipe(
+  crearLote(lote: Lote): Observable<any> {
+    return this.http.post<any>(this.apiUrl, lote).pipe(
     );
   }
 
@@ -36,8 +36,8 @@ export class LoteService {
   }
 
   // Eliminar un lote
-  eliminarLote(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}${id}/`).pipe(
+  eliminarLote(nombre: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${nombre}/`).pipe(
     );
   }
 }
