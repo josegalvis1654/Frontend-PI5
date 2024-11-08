@@ -1,5 +1,5 @@
 import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Lote } from '../model/lote.model';
 import { LoteService } from '../services/lote.service';
@@ -11,7 +11,7 @@ import { LoteService } from '../services/lote.service';
   templateUrl: './guardar-lote.component.html',
   styleUrl: './guardar-lote.component.css'
 })
-export default class GuardarLoteComponent {
+export default class GuardarLoteComponent implements OnInit{
   loteForm:FormGroup =new FormGroup({});
   
   employeeObj: Lote= new Lote();
@@ -25,19 +25,15 @@ export default class GuardarLoteComponent {
   constructor(private loteService:LoteService){
     this.createForm();
     
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.employeeList = parseData;
-      
-    }
+    
     this.filtrar='';
     this.action = "1";
     this.infomostrar = this.employeeList;
   }
   
-  ngOnInint(){
+  ngOnInit(){
     this.loteService.getLotes().subscribe((data)=>{
+      this.employeeList = data;
       this.infomostrar =data;
     })
   }
@@ -56,10 +52,10 @@ export default class GuardarLoteComponent {
 
   filter(event: any){
     this.loteService.getLotes().subscribe((data)=>{
-      this.infomostrar=this.employeeList.filter((obj:any)=>{
-        return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+        this.infomostrar=this.employeeList.filter((obj:any)=>{
+          return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+      });
     });
-  });
   }
 
   deleteInfo(event:any, id:any){
@@ -67,7 +63,7 @@ export default class GuardarLoteComponent {
     {
       this.loteService.eliminarLote(id).subscribe(()=>{
         this.infomostrar= this.infomostrar.filter((obj:any)=>{
-          return obj.producto != id;
+          return obj.id != id;
       })
       });
       this.infomostrar = this.employeeList;
@@ -77,19 +73,18 @@ export default class GuardarLoteComponent {
   Guardar() {
     this.loteService.crearLote(this.loteForm.value).subscribe({
         next: (response:any) => {
-          console.log(response);
             // Agregar el nuevo lote a la lista local con los datos de la respuesta
             this.employeeList.unshift(response.lote);
             this.employeeObj = new Lote(); // Reiniciar el formulario
             this.infomostrar = this.employeeList; // Actualizar la vista
-            console.log(this.infomostrar)
             this.createForm(); // Reiniciar el formulario para futuras entradas
+            this.ngOnInit();
         },
         error: (err) => {
             console.error('Error al guardar el lote:', err);
         }
     });
-}
+  }
 
 
   Editar(item:Lote){
@@ -117,7 +112,8 @@ export default class GuardarLoteComponent {
             // Actualizar el registro en la lista local después de una respuesta exitosa
             const record = this.employeeList.find(m => m.id === updatedData.id);
             if (record) {
-                Object.assign(record, response); // Actualiza el objeto con los datos devueltos por el servidor
+              Object.assign(record, response); // Actualiza el objeto con los datos devueltos por el servidor
+              this.ngOnInit();
             }
             this.employeeObj = new Lote();
             this.createForm(); // Reinicia el formulario
@@ -126,7 +122,7 @@ export default class GuardarLoteComponent {
             console.error('Error al modificar el lote:', err);
         }
     });
-}
+  }
 
 
 }

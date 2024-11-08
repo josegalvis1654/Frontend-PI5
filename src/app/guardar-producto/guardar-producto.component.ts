@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Producto } from '../model/lote.model';
+import { ProductoService } from '../services/producto.service';
 
 @Component({
   selector: 'app-guardar-producto',
@@ -9,7 +10,7 @@ import { Producto } from '../model/lote.model';
   templateUrl: './guardar-producto.component.html',
   styleUrl: './guardar-producto.component.css'
 })
-export default class GuardarProductoComponent {
+export default class GuardarProductoComponent implements OnInit {
 
 
   ProductoForm:FormGroup =new FormGroup({});
@@ -22,15 +23,10 @@ export default class GuardarProductoComponent {
 
   filtrar:string;
   infomostrar: any;
-  constructor(){
+  constructor(private productoservice:ProductoService){
     this.createForm();
     
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.employeeList = parseData;
-      
-    }
+    
     this.filtrar='';
     this.action = "1";
     this.infomostrar = this.employeeList;
@@ -46,37 +42,48 @@ export default class GuardarProductoComponent {
     })
   }
 
-  filter(event: any){
-    this.infomostrar=this.employeeList.filter((obj:any)=>{
-      return obj.nombre.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+  ngOnInit(){
+    this.productoservice.getProductos().subscribe((data)=>{
+      this.employeeList = data;
+      this.infomostrar =data;
     });
   }
 
-  deleteInfo(event:any, columna1:string){
+  filter(event: any){
+    this.productoservice.getProductos().subscribe((data)=>{
+      this.infomostrar=this.employeeList.filter((obj:any)=>{
+        return obj.nombre.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    });
+  });
+  }
+
+  deleteInfo(event:any, id:any){
     if(confirm("Deseas eliminar este dato?"))
     {
-
-      this.employeeList= this.employeeList.filter((obj:any)=>{
-        return obj.nombre != columna1;
+      this.productoservice.eliminarProducto(id).subscribe(()=>{ 
+        this.employeeList= this.employeeList.filter((obj:any)=>{
+          return obj.id != id;
+          
+        });
       });
       this.infomostrar = this.employeeList;
     }
   }
 
-  Guardar(){
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.ProductoForm.controls['id'].setValue(parseData.length +1);
-      this.employeeList.unshift(this.ProductoForm.value);
-    }
-    else{
-      this.employeeList.unshift(this.ProductoForm.value);
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
-    this.employeeObj = new Producto();
-    this.infomostrar = this.employeeList;
-    this.createForm()
+  Guardar() {
+    this.productoservice.crearProducto(this.ProductoForm.value).subscribe({
+        next: (response:any) => {
+            // Agregar el nuevo lote a la lista local con los datos de la respuesta
+            this.employeeList.unshift(response.Producto);
+            this.employeeObj = new Producto(); // Reiniciar el formulario
+            this.infomostrar = this.employeeList; // Actualizar la vista
+            this.createForm(); // Reiniciar el formulario para futuras entradas
+            this.ngOnInit();
+        },
+        error: (err) => {
+            console.error('Error al guardar el lote:', err);
+        }
+    });
   }
 
   Editar(item:Producto){
@@ -87,20 +94,30 @@ export default class GuardarProductoComponent {
 
   setAction(action: string){
     this.action = action;
-  }
+  } 
   
-  Modificar(){
-    const record = this.employeeList.find(m=>m.id == this.ProductoForm.controls['id'].value);
-    if(record != undefined){
-      record.id = this.ProductoForm.controls['id'].value;
-      record.nombre = this.ProductoForm.controls['nombre'].value;
-      record.tipo = this.ProductoForm.controls['tipo'].value;
-      record.ubicacion = this.ProductoForm.controls['ubicacion'].value;
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
-    this.employeeObj = new Producto();
-    this.createForm();
+  Modificar() {
+    const updatedData = {
+      id: this.ProductoForm.controls['id'].value,
+      nombre : this.ProductoForm.controls['nombre'].value,
+      tipo : this.ProductoForm.controls['tipo'].value,
+      ubicacion : this.ProductoForm.controls['ubicacion'].value,      
+    };
+
+    this.productoservice.actualizarProducto(updatedData.id, updatedData).subscribe({
+        next: (response) => {
+            // Actualizar el registro en la lista local después de una respuesta exitosa
+            const record = this.employeeList.find(m => m.id === updatedData.id);
+            if (record) {
+              Object.assign(record, response); // Actualiza el objeto con los datos devueltos por el servidor
+              this.ngOnInit();
+            }
+            this.employeeObj = new Producto();
+            this.createForm(); // Reinicia el formulario
+        },
+        error: (err) => {
+            console.error('Error al modificar el lote:', err);
+        }
+    });
   }
-
-
 }

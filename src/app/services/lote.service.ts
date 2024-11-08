@@ -36,8 +36,8 @@ export class LoteService {
   }
 
   // Eliminar un lote
-  eliminarLote(nombre: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}${nombre}/`).pipe(
+  eliminarLote(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${id}/`).pipe(
     );
   }
 }

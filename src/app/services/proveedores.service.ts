@@ -20,12 +20,12 @@ export class ProveedoresService {
   }
 
   // Método para crear un nuevo proveedor
-  createProveedor(proveedor: Proveedor): Observable<Proveedor> {
+  createProveedor(proveedor: Proveedor): Observable<any> {
     return this.http.post<any>(this.apiUrl, proveedor);
   }
 
   // Método para actualizar un proveedor existente
-  updateProveedor(id: number, proveedor: Proveedor): Observable<Proveedor> {
+  updateProveedor(id: number, proveedor: Proveedor): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}${id}/`, proveedor);
   }
 

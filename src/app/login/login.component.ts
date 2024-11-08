@@ -21,9 +21,12 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(
       response => {
         console.log('Login successful', response);
-        this.router.navigateByUrl("Admin");
-        //localStorage.setItem('token', response.token);        
-        //this.router.navigateByUrl("Gerente");
+        if (response.grupo=="Gerente"){
+          this.router.navigateByUrl("Gerente");
+        }
+        else {
+          this.router.navigateByUrl("Admin");
+        }
       },
       error => {
         console.error('Login failed', error);

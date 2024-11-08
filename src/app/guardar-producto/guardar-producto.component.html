@@ -78,9 +78,9 @@
             <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Tipo</th><th rowspan="1" colspan="1">Ubicacion</th><th rowspan="1" colspan="1">Opciones</th></tr>
           </tfoot>
           <tbody>
-            @for (item of infomostrar; track $index) {
+            @for (item of infomostrar; track item.id) {
               <tr role="row" class="odd">
-                <td class="sorting_1">{{$index+1}}</td>
+                <td class="sorting_1">{{item.id}}</td>
                 <td>{{item.nombre}}</td>
                 <td>{{item.tipo}}</td>
                 <td>{{item.ubicacion}}</td>
@@ -89,7 +89,7 @@
                     <button type="button" (click)="Editar(item)" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task" data-bs-toggle="modal" data-bs-target="#addRowModal">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button type="button" (click)="deleteInfo($event, item.nombre)" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                    <button type="button" (click)="deleteInfo($event, item.id)" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
                       <i class="fa fa-times"></i>
                     </button>
                   </div>

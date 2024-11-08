@@ -1,7 +1,8 @@
 import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Proveedor } from '../model/lote.model';
+import { ProveedoresService } from '../services/proveedores.service';
 
 @Component({
   selector: 'app-guardar-proveedor',
@@ -10,7 +11,7 @@ import { Proveedor } from '../model/lote.model';
   templateUrl: './guardar-proveedor.component.html',
   styleUrl: './guardar-proveedor.component.css'
 })
-export default class GuardarProveedorComponent {
+export default class GuardarProveedorComponent implements OnInit {
   
   ProveedorForm:FormGroup =new FormGroup({});
 
@@ -22,18 +23,19 @@ export default class GuardarProveedorComponent {
 
   filtrar:string;
   infomostrar: any;
-  constructor(){
+  constructor(private proveedorservice:ProveedoresService){
     this.createForm();
     
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.employeeList = parseData;
-      
-    }
     this.filtrar='';
     this.action = "1";
     this.infomostrar = this.employeeList;
+  }
+
+  ngOnInit(){
+    this.proveedorservice.getProveedores().subscribe((data)=>{
+      this.employeeList = data;
+      this.infomostrar =data;
+    });
   }
 
   
@@ -50,36 +52,40 @@ export default class GuardarProveedorComponent {
   }
 
   filter(event: any){
-    this.infomostrar=this.employeeList.filter((obj:any)=>{
-      return obj.nit.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    this.proveedorservice.getProveedores().subscribe((data)=>{  
+      this.infomostrar=this.employeeList.filter((obj:any)=>{
+        return obj.nit.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+      });
     });
   }
 
-  deleteInfo(event:any, columna1:string){
+  deleteInfo(event:any, id:any){
     if(confirm("Deseas eliminar este dato?"))
     {
-
-      this.employeeList= this.employeeList.filter((obj:any)=>{
-        return obj.nit != columna1;
-      });
+      this.proveedorservice.deleteProveedor(id).subscribe(()=>{
+        this.employeeList= this.employeeList.filter((obj:any)=>{
+          return obj.id != id;
+        });
+      })
       this.infomostrar = this.employeeList;
+      this.ngOnInit();
     }
   }
 
-  Guardar(){
-    const oldData= localStorage.getItem("EmpData");
-    if(oldData != null){
-      const parseData= JSON.parse(oldData);
-      this.ProveedorForm.controls['id'].setValue(parseData.length +1);
-      this.employeeList.unshift(this.ProveedorForm.value);
-    }
-    else{
-      this.employeeList.unshift(this.ProveedorForm.value);
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList))
-    this.employeeObj = new Proveedor();
-    this.infomostrar = this.employeeList;
-    this.createForm()
+  Guardar() {
+    this.proveedorservice.createProveedor(this.ProveedorForm.value).subscribe({
+        next: (response:any) => {
+            // Agregar el nuevo lote a la lista local con los datos de la respuesta
+            this.employeeList.unshift(response.proveedor);
+            this.employeeObj = new Proveedor(); // Reiniciar el formulario
+            this.infomostrar = this.employeeList; // Actualizar la vista
+            console.log(this.infomostrar)
+            this.createForm(); // Reiniciar el formulario para futuras entradas
+        },
+        error: (err) => {
+            console.error('Error al guardar el lote:', err);
+        }
+    });
   }
 
   Editar(item:Proveedor){
@@ -92,19 +98,34 @@ export default class GuardarProveedorComponent {
     this.action = action;
   }
   
-  Modificar(){
-    const record = this.employeeList.find(m=>m.id == this.ProveedorForm.controls['id'].value);
-    if(record != undefined){
-      record.nit = this.ProveedorForm.controls['nit'].value;
-      record.razon_social = this.ProveedorForm.controls['razon_social'].value;
-      record.representante_legal = this.ProveedorForm.controls['representante_legal'].value;
-      record.direcion = this.ProveedorForm.controls['direcion'].value;
-      record.telefono = this.ProveedorForm.controls['telefono'].value;
-      record.vehiculo_asociado = this.ProveedorForm.controls['vehiculo_asociado'].value;
-    }
-    localStorage.setItem('EmpData',JSON.stringify(this.employeeList));
-    this.employeeObj = new Proveedor();
-    this.createForm();
+  
+
+  Modificar() {
+    const updatedData = {
+      id: this.ProveedorForm.controls['id'].value,
+      nit : this.ProveedorForm.controls['nit'].value,
+      razon_social : this.ProveedorForm.controls['razon_social'].value,
+      representante_legal : this.ProveedorForm.controls['representante_legal'].value,
+      direcion : this.ProveedorForm.controls['direcion'].value,
+      telefono : this.ProveedorForm.controls['telefono'].value,
+      vehiculo_asociado : this.ProveedorForm.controls['vehiculo_asociado'].value,
+    };
+
+    this.proveedorservice.updateProveedor(updatedData.id, updatedData).subscribe({
+        next: (response) => {
+            // Actualizar el registro en la lista local después de una respuesta exitosa
+            const record = this.employeeList.find(m => m.id === updatedData.id);
+            if (record) {
+                Object.assign(record, response);
+                this.ngOnInit(); // Actualiza el objeto con los datos devueltos por el servidor
+            }
+            this.employeeObj = new Proveedor();
+            this.createForm(); // Reinicia el formulario
+        },
+        error: (err) => {
+            console.error('Error al modificar el lote:', err);
+        }
+    });
   }
 
 }

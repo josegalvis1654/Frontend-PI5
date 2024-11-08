@@ -14,15 +14,14 @@
               <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Producto</th><th rowspan="1" colspan="1">Fecha Entrega</th><th rowspan="1" colspan="1">Estado</th><th rowspan="1" colspan="1">Cantidad</th><th rowspan="1" colspan="1">Fecha Caducidad</th></tr>
             </tfoot>
             <tbody>
-              @for (item of infomostrar; track item.columna1) {
+              @for (item of infomostrar ; track $index) {
                 <tr role="row" class="odd">
-                  <td class="sorting_1">{{item.columna1}}</td>
-                  <td>{{item.columna2}}</td>
-                  <td>{{item.columna3}}</td>
-                  <td>{{item.columna4}}</td>
-                  <td>{{item.columna5}}</td>
-                  <td>{{item.columna6}}</td>
-                </tr>
+                  <td class="sorting_1">{{$index+1}}</td>
+                  <td>{{item.producto}}</td>
+                  <td>{{item.fechaentrega}}</td>
+                  <td>{{item.estado}}</td>
+                  <td>{{item.cantidad}}</td>
+                  <td>{{item.fechacaducidad}}</td>
                 } @empty {
                 <li>No Se Han Encontrado Lotes</li>
                 }   
