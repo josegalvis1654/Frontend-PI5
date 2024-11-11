@@ -13,19 +13,18 @@
               <tr><th rowspan="1" colspan="1">Nit</th><th rowspan="1" colspan="1">Razon Social</th><th rowspan="1" colspan="1">Representante Legal</th><th rowspan="1" colspan="1">Direccion</th><th rowspan="1" colspan="1">Telefono</th><th rowspan="1" colspan="1">Vehiculo Asociado</th></tr>
             </tfoot>
             <tbody>
-              
-              @for (item of infomostrar; track item.columna1) {
+              @for (item of infomostrar; track item.id) {
                 <tr role="row" class="odd">
-                  <td class="sorting_1">{{item.columna1}}</td>
-                  <td>{{item.columna2}}</td>
-                  <td>{{item.columna3}}</td>
-                  <td>{{item.columna4}}</td>
-                  <td>{{item.columna5}}</td>
-                  <td>{{item.columna6}}</td>
-                  
+                  <td class="sorting_1">{{item.id}}</td>
+                  <td>{{item.nit}}</td>
+                  <td>{{item.razon_social}}</td>
+                  <td>{{item.representante_legal}}</td>
+                  <td>{{item.direcion}}</td>
+                  <td>{{item.telefono}}</td>
+                  <td>{{item.vehiculo_asociado}}</td>
                 </tr>
                 } @empty {
-                <li>No Se Han Encontrado Lotes</li>
+                <li>No Se Han Encontrado Proveedores</li>
                 }
 
             </tbody>

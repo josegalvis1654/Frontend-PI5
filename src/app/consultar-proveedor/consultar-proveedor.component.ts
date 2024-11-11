@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Proveedor } from '../model/lote.model';
 import { ProveedoresService } from '../services/proveedores.service';
@@ -10,19 +10,32 @@ import { ProveedoresService } from '../services/proveedores.service';
   templateUrl: './consultar-proveedor.component.html',
   styleUrl: './consultar-proveedor.component.css'
 })
-export default class ConsultarProveedorComponent {
+export default class ConsultarProveedorComponent implements OnInit{
+
+  data:any []=[];
 
   filtrar='';
-  info=[{"columna1":"Airi Satou","columna2":"Accountant","columna3":"Tokyo","columna4":"33","columna5":"2008/11/28","columna6":"$162,700","columna7":"$162,700"},
-    {"columna1":"pepito","columna2":"Accountant","columna3":"Tokyo","columna4":"33","columna5":"2008/11/28","columna6":"$162,700","columna7":"$162,700"}
-  ];
-  infomostrar: any;
-  constructor(private basedatos:ProveedoresService){
-    this.infomostrar = this.info;
+  
+  infomostrar: any[]=[];
+
+  constructor(private proveedorservice:ProveedoresService){
+  
+  }
+
+  ngOnInit(): void {
+    this.llenardata();
+  }
+
+  llenardata(){
+    this.proveedorservice.getProveedores().subscribe(data =>{
+      this.data =data;
+      this.infomostrar = this.data;
+      console.log(this.data);
+    })
   }
   
   filter(event: any){
-    this.infomostrar=this.info.filter(obj=>{
+    this.infomostrar=this.data.filter(obj=>{
       return obj.columna1.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
     });
   }

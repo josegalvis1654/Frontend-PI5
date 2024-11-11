@@ -7,7 +7,7 @@ import { LoteService } from '../services/lote.service';
 @Component({
   selector: 'app-guardar-lote',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,ReactiveFormsModule,],
   templateUrl: './guardar-lote.component.html',
   styleUrl: './guardar-lote.component.css'
 })
@@ -23,6 +23,7 @@ export default class GuardarLoteComponent implements OnInit{
   filtrar:string;
   infomostrar: any;
   constructor(private loteService:LoteService){
+    
     this.createForm();
     
     
@@ -50,6 +51,23 @@ export default class GuardarLoteComponent implements OnInit{
     })
   }
 
+  
+
+  cerrarModal() {
+    const modal = document.getElementById('addRowModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open'); // Para eliminar la clase de fondo oscuro
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove(); // Elimina el fondo oscuro del modal
+      }
+    }
+  }
+
+
   filter(event: any){
     this.loteService.getLotes().subscribe((data)=>{
         this.infomostrar=this.employeeList.filter((obj:any)=>{
@@ -67,6 +85,7 @@ export default class GuardarLoteComponent implements OnInit{
       })
       });
       this.infomostrar = this.employeeList;
+      this.ngOnInit();
     }
   }
 
@@ -78,7 +97,6 @@ export default class GuardarLoteComponent implements OnInit{
             this.employeeObj = new Lote(); // Reiniciar el formulario
             this.infomostrar = this.employeeList; // Actualizar la vista
             this.createForm(); // Reiniciar el formulario para futuras entradas
-            this.ngOnInit();
         },
         error: (err) => {
             console.error('Error al guardar el lote:', err);

@@ -79,8 +79,8 @@ export default class GuardarProveedorComponent implements OnInit {
             this.employeeList.unshift(response.proveedor);
             this.employeeObj = new Proveedor(); // Reiniciar el formulario
             this.infomostrar = this.employeeList; // Actualizar la vista
-            console.log(this.infomostrar)
             this.createForm(); // Reiniciar el formulario para futuras entradas
+            this.ngOnInit();
         },
         error: (err) => {
             console.error('Error al guardar el lote:', err);

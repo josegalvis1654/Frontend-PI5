@@ -49,6 +49,20 @@ export default class GuardarProductoComponent implements OnInit {
     });
   }
 
+  cerrarModal() {
+    const modal = document.getElementById('addRowModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open'); // Para eliminar la clase de fondo oscuro
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove(); // Elimina el fondo oscuro del modal
+      }
+    }
+  }
+
   filter(event: any){
     this.productoservice.getProductos().subscribe((data)=>{
       this.infomostrar=this.employeeList.filter((obj:any)=>{
@@ -67,6 +81,7 @@ export default class GuardarProductoComponent implements OnInit {
         });
       });
       this.infomostrar = this.employeeList;
+      this.ngOnInit();
     }
   }
 

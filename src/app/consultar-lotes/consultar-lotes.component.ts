@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { LoteService } from '../services/lote.service';
+
+
 
 @Component({
   selector: 'app-consultar-lotes',
@@ -8,20 +11,38 @@ import { FormsModule, NgModel } from '@angular/forms';
   templateUrl: './consultar-lotes.component.html',
   styleUrl: './consultar-lotes.component.css'
 })
-export  default class ConsultarLotesComponent {
+export  default class ConsultarLotesComponent implements OnInit {
+
+  data:any []=[];
 
   filtrar='';
-  info=[{"columna1":"Airi Satou","columna2":"Accountant","columna3":"Tokyo","columna4":"33","columna5":"2008/11/28","columna6":"$162,700"},
-    {"columna1":"pepito","columna2":"Accountant","columna3":"Tokyo","columna4":"33","columna5":"2008/11/28","columna6":"$162,700"}
-  ];
-  infomostrar: any;
-  constructor(){
-    this.infomostrar = this.info;
+  
+  infomostrar: any[]=[];
+
+  constructor(private loteservice:LoteService){
+    
+    
   }
   
+  ngOnInit(): void {
+    this.llenardata();
+  }
+
+  llenardata(){
+    this.loteservice.getLotes().subscribe(data =>{
+      this.data =data;
+      this.infomostrar = this.data;
+      console.log(this.data);
+    })
+  }
+
+  
+
   filter(event: any){
-    this.infomostrar=this.info.filter(obj=>{
-      return obj.columna1.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+    this.loteservice.getLotes().subscribe((data)=>{
+        this.infomostrar=this.data.filter((obj:any)=>{
+          return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
+      });
     });
   }
 }

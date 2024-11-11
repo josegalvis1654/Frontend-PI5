@@ -14,16 +14,15 @@
             <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Tipo</th><th rowspan="1" colspan="1">Ubicacion</th>
           </tfoot>
           <tbody>
-            @for (item of infomostrar; track item.columna1) {
+            @for (item of infomostrar; track data) {
               <tr role="row" class="odd">
-                <td class="sorting_1">{{item.columna1}}</td>
-                <td>{{item.columna2}}</td>
-                <td>{{item.columna3}}</td>
-                <td>{{item.columna5}}</td>
-                
+                <td class="sorting_1">{{item.id}}</td>
+                <td>{{item.nombre}}</td>
+                <td>{{item.tipo}}</td>
+                <td>{{item.ubicacion}}</td>
               </tr>
               } @empty {
-              <li>No Se Han Encontrado Lotes</li>
+              <li>No Se Han Encontrado Producto</li>
               }   
             
           </tbody>
