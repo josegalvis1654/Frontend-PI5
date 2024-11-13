@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Lote } from '../model/lote.model';  // Asegúrate de tener la interfaz de Lote bien definida
+import { Producto } from '../model/lote.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class LoteService {
   getLotes(): Observable<Lote[]> {
     return this.http.get<Lote[]>(this.apiUrl).pipe(
     );
+  }
+
+  getProducto(id:any): Observable<Producto> {
+    return this.http.get<Producto>(`${this.apiUrl}${id}/`);
   }
 
   // Obtener un lote por ID

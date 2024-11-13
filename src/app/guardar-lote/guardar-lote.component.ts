@@ -1,13 +1,16 @@
 import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Lote } from '../model/lote.model';
+import { Lote, Proveedor } from '../model/lote.model';
 import { LoteService } from '../services/lote.service';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-guardar-lote',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,],
+  imports: [FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './guardar-lote.component.html',
   styleUrl: './guardar-lote.component.css'
 })
@@ -36,7 +39,7 @@ export default class GuardarLoteComponent implements OnInit{
     this.loteService.getLotes().subscribe((data)=>{
       this.employeeList = data;
       this.infomostrar =data;
-    })
+    });
   }
   
   createForm(){
@@ -47,25 +50,11 @@ export default class GuardarLoteComponent implements OnInit{
       estado:new FormControl(this.employeeObj.estado),
       cantidad:new FormControl(this.employeeObj.cantidad),
       fechacaducidad:new FormControl(this.employeeObj.fechacaducidad),
-      
+      proveedor:new FormControl(this.employeeObj.proveedor),
     })
   }
 
-  
 
-  cerrarModal() {
-    const modal = document.getElementById('addRowModal');
-    if (modal) {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      modal.style.display = 'none';
-      document.body.classList.remove('modal-open'); // Para eliminar la clase de fondo oscuro
-      const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.remove(); // Elimina el fondo oscuro del modal
-      }
-    }
-  }
 
 
   filter(event: any){
@@ -74,6 +63,20 @@ export default class GuardarLoteComponent implements OnInit{
           return obj.producto.toLocaleLowerCase().indexOf(event.toLocaleLowerCase()) > -1;
       });
     });
+  }
+
+  ordAsc(){
+    this.employeeList=this.infomostrar.slice();
+    this.employeeList.sort((a,b)=> a.id - b.id );
+    console.log('lista Ordenad', this.employeeList);
+    console.log('lista original',this.infomostrar);
+  }
+
+  ordDsc(){
+    this.employeeList=this.infomostrar.slice();
+    this.employeeList.sort((a,b)=> b.id - a.id);
+    console.log('lista Desordenada', this.employeeList);
+    console.log('lista original',this.infomostrar);
   }
 
   deleteInfo(event:any, id:any){
@@ -123,6 +126,7 @@ export default class GuardarLoteComponent implements OnInit{
       estado: this.loteForm.controls['estado'].value,
       cantidad: this.loteForm.controls['cantidad'].value,
       fechacaducidad: this.loteForm.controls['fechacaducidad'].value,
+      proveedor: this.loteForm.controls['proveedor'].value,
     };
 
     this.loteService.actualizarLote(updatedData.id, updatedData).subscribe({

@@ -1,14 +1,14 @@
 
 <div class="card">
     <div class="card-header">
-      <div class="d-flex align-items-center">
+      <div class="d-flex justify-content-between">
         <h4 class="card-title">Proveedores</h4>
-        <div class="separacion">
+        
           <button class="btn btn-primary btn-round ms-auto" (click)="setAction('1')" data-bs-toggle="modal" data-bs-target="#addRowModal">
             <i class="fa fa-plus"></i>
             Agregar
           </button>
-        </div>
+        
       </div>
     </div>
     <div class="card-body">
@@ -21,7 +21,7 @@
                 <span class="fw-mediumbold"> Crear</span>
                 <span class="fw-light"> Nuevo Proveedor </span>
               </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -58,7 +58,7 @@
                   <div class="col-sm-12">
                     <div class="form-group form-group-default">
                       <label>Telefono</label>
-                      <input id="telefono" type="text" formControlName="telefono" class="form-control" placeholder="fill name">
+                      <input id="telefono" type="tel" formControlName="telefono" class="form-control" placeholder="El numero del Proveedor">
                     </div>
                   </div>
                   <div class="col-sm-12">
@@ -80,7 +80,7 @@
                 }
               </div>
               <div>
-                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
               </div>
             </div>
           </div>
