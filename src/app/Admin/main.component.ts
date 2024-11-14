@@ -9,11 +9,5 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './main.component.css'
 })
 export default class MainComponent {
-  constructor(private router: Router){
-
-  }
-  ingresar(){
-    this.router.navigateByUrl("admin");
-  }
 
 }

@@ -18,10 +18,6 @@ export class LoteService {
     );
   }
 
-  getProducto(id:any): Observable<Producto> {
-    return this.http.get<Producto>(`${this.apiUrl}${id}/`);
-  }
-
   // Obtener un lote por ID
   getLote(id: number): Observable<Lote> {
     return this.http.get<Lote>(`${this.apiUrl}${id}/`).pipe(

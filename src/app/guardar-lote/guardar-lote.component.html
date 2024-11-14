@@ -33,17 +33,11 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Producto</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
                     <label >Producto</label>
-                    <select name ="producto "*ngFor="let item of infomostrar" class="form-control">
-                      <option value='nombre'>{{item.name}}</option>
+                    <select name ="producto" formControlName="producto"  class="form-control">
+                        
+                        <option *ngFor="let item of productos"value='{{item.id}}'>{{item.nombre}}</option>
                     </select>  
-                    
                   </div>
                 </div>
                 <div class="col-sm-12">
@@ -55,7 +49,9 @@
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Estado</label>
-                    <input id="estado"  type="text" formControlName="estado" class="form-control" placeholder="fill name">
+                    <select name ="estado" formControlName="estado"  class="form-control">
+                      <option *ngFor="let item of estados" value='{{item.id}}'>{{item.estado}}</option>
+                  </select>
                   </div>
                 </div>
                 <div class="col-sm-12">
@@ -68,6 +64,15 @@
                   <div class="form-group form-group-default">
                     <label>Fecha Caducidad</label>
                     <input id="fechacaducidad"  type="date" formControlName="fechacaducidad" class="form-control" placeholder="fill name" >
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group form-group-default">
+                    <label>Proveedor</label>
+                    <select name ="proveedor" formControlName="proveedor"  class="form-control">
+                      <option selected></option>
+                      <option *ngFor="let item of proveedor"value='{{item.id}}'>{{item.razon_social}}</option>
+                    </select>  
                   </div>
                 </div>
               </div>
@@ -92,7 +97,7 @@
     <div class="table-responsive">
       <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="add-row_length"><label>Show <select name="add-row_length" aria-controls="add-row" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="add-row_filter" class="dataTables_filter"><label>Buscar:<input (ngModelChange)="filter($event)" [(ngModel)]="filtrar" type="search" class="form-control form-control-sm" placeholder="" aria-controls="add-row"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
         <thead>
-          <tr role="row"><th (click)="ordAsc()" class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" (click)="ordDsc()" aria-label="Name: activate to sort column descending" style="width: 70px;">Id</th><th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150px;">Producto</th><th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 204.275px;">Fecha Entrega</th><th style="width: 120.7px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Estado</th><th style="width: 120.7px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Cantidad</th><th style="width: 250px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Fecha Caducidad</th><th class="text-center" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 249.613px;">Proveedor</th><th class="text-center" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 249.613px;">Opciones</th></tr>
+          <tr role="row"><th (click)="ordAsc()" class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending"  aria-label="Name: activate to sort column descending" style="width: 70px;">Id</th><th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 150px;">Producto</th><th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 204.275px;">Fecha Entrega</th><th style="width: 120.7px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Estado</th><th style="width: 120.7px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Cantidad</th><th style="width: 250px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Fecha Caducidad</th><th class="text-center" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 249.613px;">Proveedor</th><th class="text-center" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 249.613px;">Opciones</th></tr>
         </thead>
         <tfoot>
           <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Producto</th><th rowspan="1" colspan="1">Fecha Entrega</th><th rowspan="1" colspan="1">Estado</th><th rowspan="1" colspan="1">Cantidad</th><th rowspan="1" colspan="1">Fecha Caducidad</th><th rowspan="1" colspan="1">Proveedor</th><th rowspan="1" colspan="1">Opciones</th></tr>
@@ -101,12 +106,12 @@
           @for (item of infomostrar ; track item.id) {
             <tr role="row" class="odd">
               <td class="sorting_1">{{item.id}}</td>
-              <td>{{item.producto}}</td>
+              @for (item3 of productos ; track item3.id){@if(item.producto == item3.id){<td>{{item3.nombre}}</td>}}
               <td>{{item.fechaentrega}}</td>
-              <td>{{item.estado}}</td>
+              @for (item3 of estados ; track item3.id){@if(item.estado == item3.id){<td >{{item3.estado}}</td>}}
               <td>{{item.cantidad}}</td>
               <td>{{item.fechacaducidad}}</td>
-              <td>{{item.proveedor}}</td>
+              @for (item2 of proveedor ; track item2.id){@if(item.proveedor == item2.id){<td>{{item2.razon_social}}</td>}}
               <td class="text-center">
                 <div class="form-button-action">
                   <button type="button" (click)="Editar(item)" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task" data-bs-toggle="modal" data-bs-target="#LoteModal">

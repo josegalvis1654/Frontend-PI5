@@ -96,6 +96,10 @@ export default class GuardarProveedorComponent implements OnInit {
 
   setAction(action: string){
     this.action = action;
+    if(action ==  "1"){
+      this.employeeObj = new Proveedor();
+      this.createForm();
+    }
   }
   
   

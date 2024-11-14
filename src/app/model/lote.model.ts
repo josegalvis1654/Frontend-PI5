@@ -6,15 +6,14 @@ export class Lote {
     estado:number;
     cantidad:number;
     fechacaducidad?:Date;
-    proveedor:string;
+    proveedor:number;
 
     constructor(){
         this.id=0;
         this.producto=0;
-        
         this.estado=0;
         this.cantidad= 0;
-        this.proveedor='';
+        this.proveedor=0;
         
     }
 }

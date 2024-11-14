@@ -1,9 +1,12 @@
 import { compileOpaqueAsyncClassMetadata } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Lote, Proveedor } from '../model/lote.model';
+import { Estado, Lote, Producto, Proveedor } from '../model/lote.model';
 import { LoteService } from '../services/lote.service';
 import { CommonModule } from '@angular/common';
+import { ProductoService } from '../services/producto.service';
+import { ProveedoresService } from '../services/proveedores.service';
+import { EstadoService } from '../services/estado.service';
 
 
 
@@ -22,10 +25,17 @@ export default class GuardarLoteComponent implements OnInit{
   employeeList: Lote[] = [];
   
   action: string;
-  
+  estados: Estado[] =[];
+
   filtrar:string;
   infomostrar: any;
-  constructor(private loteService:LoteService){
+  productos: Producto[] =[];
+  proveedor: Proveedor[] =[];
+  encender:boolean=false;
+  constructor(private loteService:LoteService, 
+    private productoservice: ProductoService,
+    private proveedorservice:ProveedoresService,
+    private estadoservice:EstadoService){
     
     this.createForm();
     
@@ -33,6 +43,7 @@ export default class GuardarLoteComponent implements OnInit{
     this.filtrar='';
     this.action = "1";
     this.infomostrar = this.employeeList;
+    
   }
   
   ngOnInit(){
@@ -40,6 +51,18 @@ export default class GuardarLoteComponent implements OnInit{
       this.employeeList = data;
       this.infomostrar =data;
     });
+    this.estadoservice.getEstado().subscribe((data)=>{
+      this.estados = data;
+      //console.log(this.estados);
+    });
+    this.productoservice.getProductos().subscribe((data)=>{
+      this.productos = data;
+      //console.log(this.productos);
+    });
+    this.proveedorservice.getProveedores().subscribe((data)=>{
+      this.proveedor = data;
+    });
+    
   }
   
   createForm(){
@@ -66,18 +89,22 @@ export default class GuardarLoteComponent implements OnInit{
   }
 
   ordAsc(){
-    this.employeeList=this.infomostrar.slice();
-    this.employeeList.sort((a,b)=> a.id - b.id );
-    console.log('lista Ordenad', this.employeeList);
-    console.log('lista original',this.infomostrar);
+    if(this.encender==false){
+      this.infomostrar=this.employeeList.slice();
+      this.employeeList.sort((a,b)=> a.id - b.id );
+      console.log('lista Ordenad', this.employeeList);
+      console.log('lista original',this.infomostrar);
+      this.encender=true;
+    }else{
+      this.infomostrar=this.employeeList.slice();
+      this.employeeList.sort((a,b)=> b.id - a.id);
+      console.log('lista Desordenada', this.employeeList);
+      console.log('lista original',this.infomostrar);
+      this.encender=false;
+    }
   }
 
-  ordDsc(){
-    this.employeeList=this.infomostrar.slice();
-    this.employeeList.sort((a,b)=> b.id - a.id);
-    console.log('lista Desordenada', this.employeeList);
-    console.log('lista original',this.infomostrar);
-  }
+  
 
   deleteInfo(event:any, id:any){
     if(confirm("Deseas eliminar este dato?"))
@@ -93,6 +120,7 @@ export default class GuardarLoteComponent implements OnInit{
   }
 
   Guardar() {
+    console.log(this.loteForm.value);
     this.loteService.crearLote(this.loteForm.value).subscribe({
         next: (response:any) => {
             // Agregar el nuevo lote a la lista local con los datos de la respuesta
@@ -116,6 +144,10 @@ export default class GuardarLoteComponent implements OnInit{
 
   setAction(action: string){
     this.action = action;
+    if(action ==  "1"){
+      this.employeeObj = new Lote();
+      this.createForm();
+    }
   }
   
   Modificar() {

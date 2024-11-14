@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Producto } from '../model/lote.model';
+import { Producto, Tipo, Ubicacion } from '../model/lote.model';
 import { ProductoService } from '../services/producto.service';
+import { TipoService } from '../services/tipo.service';
+import { CommonModule } from '@angular/common';
+import { UbicacionService } from '../services/ubicacion.service';
 
 @Component({
   selector: 'app-guardar-producto',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './guardar-producto.component.html',
   styleUrl: './guardar-producto.component.css'
 })
@@ -20,10 +23,13 @@ export default class GuardarProductoComponent implements OnInit {
   employeeList: Producto[] = [];
 
   action: string;
-
+  tipos: Tipo[]=[];
+  ubicaciones: Ubicacion[]=[];
   filtrar:string;
   infomostrar: any;
-  constructor(private productoservice:ProductoService){
+  constructor(private productoservice:ProductoService,
+    private tiposervice:TipoService,
+    private ubicacionservice:UbicacionService){
     this.createForm();
     
     
@@ -46,6 +52,14 @@ export default class GuardarProductoComponent implements OnInit {
     this.productoservice.getProductos().subscribe((data)=>{
       this.employeeList = data;
       this.infomostrar =data;
+      
+    });
+    this.tiposervice.getTipo().subscribe((data)=>{
+      this.tipos =data;
+    });
+    this.ubicacionservice.getUbicacion().subscribe((data)=>{
+      this.ubicaciones =data;
+
     });
   }
 
@@ -73,10 +87,11 @@ export default class GuardarProductoComponent implements OnInit {
   }
 
   Guardar() {
+    console.log(this.ProductoForm.value);
     this.productoservice.crearProducto(this.ProductoForm.value).subscribe({
         next: (response:any) => {
             // Agregar el nuevo lote a la lista local con los datos de la respuesta
-            this.employeeList.unshift(response.Producto);
+            this.employeeList.unshift(response.producto);
             this.employeeObj = new Producto(); // Reiniciar el formulario
             this.infomostrar = this.employeeList; // Actualizar la vista
             this.createForm(); // Reiniciar el formulario para futuras entradas
@@ -96,6 +111,10 @@ export default class GuardarProductoComponent implements OnInit {
 
   setAction(action: string){
     this.action = action;
+    if(action ==  "1"){
+      this.employeeObj = new Producto();
+      this.createForm();
+    }
   } 
   
   Modificar() {

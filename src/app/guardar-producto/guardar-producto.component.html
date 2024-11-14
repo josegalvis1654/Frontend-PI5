@@ -40,13 +40,19 @@
                   <div class="col-sm-12">
                     <div class="form-group form-group-default">
                       <label>Tipo</label>
-                      <input id="tipo" type="text" formControlName="tipo" class="form-control" placeholder="fill name">
+                      <select name ="tipo" formControlName="tipo"  class="form-control">
+                        <option selected></option>
+                        <option *ngFor="let item of tipos"value='{{item.id}}'>{{item.tipo}}</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group form-group-default">
                       <label>Ubicacion</label>
-                      <input id="ubicacion" type="text" formControlName="ubicacion" class="form-control" placeholder="fill name">
+                      <select name ="ubicacion" formControlName="ubicacion"  class="form-control">
+                        <option selected></option>
+                        <option *ngFor="let item of ubicaciones"value='{{item.id}}'>{{item.ubicacion}}</option>
+                      </select>
                     </div>
                   </div>
                   
@@ -82,8 +88,8 @@
               <tr role="row" class="odd">
                 <td class="sorting_1">{{item.id}}</td>
                 <td>{{item.nombre}}</td>
-                <td>{{item.tipo}}</td>
-                <td>{{item.ubicacion}}</td>
+                @for (item3 of tipos ; track item3.id){@if(item.tipo == item3.id){<td>{{item3.tipo}}</td>}}
+                @for (item3 of ubicaciones ; track item3.id){@if(item.ubicacion == item3.id){<td>{{item3.ubicacion}}</td>}}
                 <td>
                   <div class="form-button-action" class="text-center">
                     <button type="button" (click)="Editar(item)" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task" data-bs-toggle="modal" data-bs-target="#addRowModal">
