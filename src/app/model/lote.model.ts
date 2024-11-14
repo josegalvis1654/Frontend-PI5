@@ -54,3 +54,28 @@ export class Producto{
         this.ubicacion=0;
     }
 }
+
+export class Ubicacion{
+    id:number;
+    ubicacion:string;
+    constructor(){
+        this.id=0;
+        this.ubicacion='';
+    }
+}
+export class Tipo{
+    id:number;
+    tipo:string;
+    constructor(){
+        this.id=0;
+        this.tipo='';
+    }
+}
+export class Estado{
+    id:number;
+    estado:string;
+    constructor(){
+        this.id=0;
+        this.estado='';
+    }
+}
