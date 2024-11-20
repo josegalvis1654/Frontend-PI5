@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {  RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NotificacionService } from '../services/notificacion.servise';
 
 
 
@@ -10,6 +11,14 @@ import {  RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './main2.component.html',
   styleUrl: './main2.component.css'
 })
-export  default class Main2Component {
+export  default class Main2Component implements OnInit {
 
+  notificacion:any[]=[];
+
+  constructor(private notificaciones:NotificacionService){
+    
+  }
+  ngOnInit(){
+    
+  }
 }

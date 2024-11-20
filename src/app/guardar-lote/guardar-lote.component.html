@@ -34,8 +34,7 @@
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label >Producto</label>
-                    <select name ="producto" formControlName="producto"  class="form-control">
-                        
+                    <select name ="producto" formControlName="producto"  class="form-control" >
                         <option *ngFor="let item of productos"value='{{item.id}}'>{{item.nombre}}</option>
                     </select>  
                   </div>
@@ -43,13 +42,13 @@
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Fecha Entrega</label>
-                    <input id="fechaentrega"  type="date" formControlName="fechaentrega" class="form-control" placeholder="fill name">
+                    <input id="fechaentrega"  type="date" formControlName="fechaentrega" class="form-control" >
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Estado</label>
-                    <select name ="estado" formControlName="estado"  class="form-control">
+                    <select name ="estado" formControlName="estado"  class="form-control" required>
                       <option *ngFor="let item of estados" value='{{item.id}}'>{{item.estado}}</option>
                   </select>
                   </div>
@@ -57,20 +56,19 @@
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Cantidad</label>
-                    <input id="cantidad"  type="text" formControlName="cantidad" class="form-control" placeholder="fill name">
+                    <input id="cantidad"  type="text" formControlName="cantidad" class="form-control" >
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Fecha Caducidad</label>
-                    <input id="fechacaducidad"  type="date" formControlName="fechacaducidad" class="form-control" placeholder="fill name" >
+                    <input id="fechacaducidad"  type="date" formControlName="fechacaducidad" class="form-control" >
                   </div>
                 </div>
                 <div class="col-sm-12">
                   <div class="form-group form-group-default">
                     <label>Proveedor</label>
-                    <select name ="proveedor" formControlName="proveedor"  class="form-control">
-                      <option selected></option>
+                    <select name ="proveedor" formControlName="proveedor"  class="form-control" required>
                       <option *ngFor="let item of proveedor"value='{{item.id}}'>{{item.razon_social}}</option>
                     </select>  
                   </div>

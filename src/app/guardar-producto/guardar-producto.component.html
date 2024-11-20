@@ -40,8 +40,7 @@
                   <div class="col-sm-12">
                     <div class="form-group form-group-default">
                       <label>Tipo</label>
-                      <select name ="tipo" formControlName="tipo"  class="form-control">
-                        <option selected></option>
+                      <select name ="tipo" formControlName="tipo"  class="form-control" required>
                         <option *ngFor="let item of tipos"value='{{item.id}}'>{{item.tipo}}</option>
                       </select>
                     </div>
@@ -49,8 +48,7 @@
                   <div class="col-sm-12">
                     <div class="form-group form-group-default">
                       <label>Ubicacion</label>
-                      <select name ="ubicacion" formControlName="ubicacion"  class="form-control">
-                        <option selected></option>
+                      <select name ="ubicacion" formControlName="ubicacion"  class="form-control" required>
                         <option *ngFor="let item of ubicaciones"value='{{item.id}}'>{{item.ubicacion}}</option>
                       </select>
                     </div>
