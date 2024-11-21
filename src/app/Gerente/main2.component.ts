@@ -14,6 +14,7 @@ import { NotificacionService } from '../services/notificacion.servise';
 export  default class Main2Component implements OnInit {
 
   notificacion:any[]=[];
+  noti:any={};
 
   constructor(private notificaciones:NotificacionService){
     

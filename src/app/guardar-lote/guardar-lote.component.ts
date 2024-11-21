@@ -10,6 +10,7 @@ import { EstadoService } from '../services/estado.service';
 
 
 
+
 @Component({
   selector: 'app-guardar-lote',
   standalone: true,
@@ -53,11 +54,10 @@ export default class GuardarLoteComponent implements OnInit{
     });
     this.estadoservice.getEstado().subscribe((data)=>{
       this.estados = data;
-      //console.log(this.estados);
+      
     });
     this.productoservice.getProductos().subscribe((data)=>{
       this.productos = data;
-      //console.log(this.productos);
     });
     this.proveedorservice.getProveedores().subscribe((data)=>{
       this.proveedor = data;
@@ -120,7 +120,7 @@ export default class GuardarLoteComponent implements OnInit{
   }
 
   Guardar() {
-    console.log(this.loteForm.value);
+    
     this.loteService.crearLote(this.loteForm.value).subscribe({
         next: (response:any) => {
             // Agregar el nuevo lote a la lista local con los datos de la respuesta
@@ -177,6 +177,7 @@ export default class GuardarLoteComponent implements OnInit{
         }
     });
   }
+
 
 
 }

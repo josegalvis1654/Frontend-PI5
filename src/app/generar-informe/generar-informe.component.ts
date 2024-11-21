@@ -20,17 +20,18 @@ Chart.register(...registerables); // Registra todos los elementos de Chart.js (c
   styleUrl: './generar-informe.component.css'
 })
 export default class GenerarInformeComponent implements OnInit {
-  productoubicacion:any[]=[];
-  loteproducto:any[]=[];
-  lotereciente:any[]=[];
-  loteproveedor:any[]=[];
+  productoubicacion:any={};
   caducadolote:any[]=[];
-
+  
+  loteproveedor:any={};
+  
+  loteproducto:any={};// producto con mas lotes
+  
+  lotereciente:any={}; //lote mas reciente
 
   totalproducto: any[]=[];
   producto: any[]=[];
   chardata:any;
-  //@ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>; // Referencia al canvas
 
   constructor(private productolote:ProductoLoteService,
     private ubicacionproducto:UbicacionProductoService,
@@ -43,25 +44,27 @@ export default class GenerarInformeComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
     this.productolote.obtenerProductoConMasLotes().subscribe(data=>{
-      this.loteproducto=data;
-      console.log(this.loteproducto);
+      this.loteproducto=data['producto_mas_lotes'];
+      console.log('prueba',this.loteproducto);
+      console.log(data)
     });
 
     this.ubicacionproducto.obtenerUbicacionConMasProductos().subscribe(data=>{
-      this.productoubicacion=data;
-      console.log(this.productoubicacion);
+      this.productoubicacion=data['ubicaciones_mas_productos'];
+      console.log('prueba2',this.productoubicacion);
+      
     });
 
     this.proveedorlote.obtenerProveedorConMasLotes().subscribe(data=>{
-      this.loteproveedor=data;
-      console.log(this.loteproveedor);
+      this.loteproveedor=data['proveedores'],[0];
+      console.log(this.loteproveedor)
+      console.log(data)
     });
 
     this.caducarlote.obtenerLotesProximosACaducar().subscribe(data=>{
       this.caducadolote=data;
-      console.log(this.caducadolote);
+      
     })
 
     this.cantidadtotal.obtenerTotalCantidadPorProducto().subscribe(result=>{
@@ -77,24 +80,40 @@ export default class GenerarInformeComponent implements OnInit {
 
     this.recientelote.obtenerLotesRecientes().subscribe(data=>{
       this.lotereciente=data;
-      console.log(this.lotereciente);
-    })
+      //console.log("lote reciente",this.lotereciente);
+    });
   }
 
 
   crearGrafico(totalproducto:any,producto:any) {
     
     //const ctx = this.canvas.nativeElement.getContext('2d'); // Obtiene el contexto del canvas
-    const ctx = document.getElementById('myChart');
+    const ctx = //document.getElementById('myChart');
     new Chart("ctx", {
       type: 'bar', // Tipo de gráfico (puede ser 'line', 'bar', etc.)
       data: {
         labels: producto, // Etiquetas para el eje X
         datasets: [{
-          label: 'Total de Productos',
+          label: 'Cantidad',
           data: totalproducto, // Datos a mostrar en el gráfico
-          backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de fondo de las barras
-          borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ], // Color de fondo de las barras
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ], // Color del borde de las barras
           borderWidth: 1 // Ancho del borde
         }]
       },
