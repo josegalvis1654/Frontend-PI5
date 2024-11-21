@@ -92,14 +92,12 @@ export default class GuardarLoteComponent implements OnInit{
     if(this.encender==false){
       this.infomostrar=this.employeeList.slice();
       this.employeeList.sort((a,b)=> a.id - b.id );
-      console.log('lista Ordenad', this.employeeList);
-      console.log('lista original',this.infomostrar);
+      
       this.encender=true;
     }else{
       this.infomostrar=this.employeeList.slice();
       this.employeeList.sort((a,b)=> b.id - a.id);
-      console.log('lista Desordenada', this.employeeList);
-      console.log('lista original',this.infomostrar);
+     
       this.encender=false;
     }
   }

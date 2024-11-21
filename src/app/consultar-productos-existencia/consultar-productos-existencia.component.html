@@ -14,12 +14,12 @@
             <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Tipo</th><th rowspan="1" colspan="1">Ubicacion</th>
           </tfoot>
           <tbody>
-            @for (item of infomostrar; track data) {
+            @for (item of infomostrar; track item.id) {
               <tr role="row" class="odd">
                 <td class="sorting_1">{{item.id}}</td>
                 <td>{{item.nombre}}</td>
-                <td>{{item.tipo}}</td>
-                <td>{{item.ubicacion}}</td>
+                @for (item3 of tipos ; track item3.id){@if(item.tipo == item3.id){<td>{{item3.tipo}}</td>}}
+                @for (item3 of ubicaciones ; track item3.id){@if(item.ubicacion == item3.id){<td>{{item3.ubicacion}}</td>}}
               </tr>
               } @empty {
               <li>No Se Han Encontrado Producto</li>

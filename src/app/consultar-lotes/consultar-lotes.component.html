@@ -8,20 +8,21 @@
         <div class="table-responsive">
           <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="basic-datatables_length"><label>Show <select name="basic-datatables_length" aria-controls="basic-datatables" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="basic-datatables_filter" class="dataTables_filter"><label>Buscar<input (ngModelChange)="filter($event)" [(ngModel)]="filtrar" type="search" class="form-control form-control-sm" placeholder="" aria-controls="basic-datatables"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="basic-datatables" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="basic-datatables_info">
             <thead>
-              <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 164.462px;">Id</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 255.962px;">Producto</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 128.488px;">Fecha Entrega</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54.45px;">Estado</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 132.025px;">Cantidad</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 150px;">Fecha Caducidad</th></tr>
+              <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 164.462px;">Id</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 255.962px;">Producto</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 128.488px;">Fecha Entrega</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54.45px;">Estado</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 132.025px;">Cantidad</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 150px;">Fecha Caducidad</th><th class="sorting" tabindex="0" aria-controls="basic-datatables" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 150px;">Proveedor</th></tr>
             </thead>
             <tfoot>
-              <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Producto</th><th rowspan="1" colspan="1">Fecha Entrega</th><th rowspan="1" colspan="1">Estado</th><th rowspan="1" colspan="1">Cantidad</th><th rowspan="1" colspan="1">Fecha Caducidad</th></tr>
+              <tr><th rowspan="1" colspan="1">Id</th><th rowspan="1" colspan="1">Producto</th><th rowspan="1" colspan="1">Fecha Entrega</th><th rowspan="1" colspan="1">Estado</th><th rowspan="1" colspan="1">Cantidad</th><th rowspan="1" colspan="1">Fecha Caducidad</th><th rowspan="1" colspan="1">Proveedor</th></tr>
             </tfoot>
             <tbody>
-              @for (item of infomostrar ; track data ) {
+              @for (item of infomostrar ; track item.id ) {
                 <tr role="row" class="odd">
                   <td class="sorting_1">{{item.id}}</td>
-                  <td>{{item.producto}}</td>
+                  @for (item3 of productos ; track item3.id){@if(item.producto == item3.id){<td>{{item3.nombre}}</td>}}
                   <td>{{item.fechaentrega}}</td>
-                  <td>{{item.estado}}</td>
+                  @for (item3 of estados ; track item3.id){@if(item.estado == item3.id){<td >{{item3.estado}}</td>}}
                   <td>{{item.cantidad}}</td>
                   <td>{{item.fechacaducidad}}</td>
+                  @for (item2 of proveedor ; track item2.id){@if(item.proveedor == item2.id){<td>{{item2.razon_social}}</td>}}
                 } @empty {
                 <li>No Se Han Encontrado Lotes</li>
                 }   

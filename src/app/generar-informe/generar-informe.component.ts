@@ -46,20 +46,16 @@ export default class GenerarInformeComponent implements OnInit {
   ngOnInit(): void {
     this.productolote.obtenerProductoConMasLotes().subscribe(data=>{
       this.loteproducto=data['producto_mas_lotes'];
-      console.log('prueba',this.loteproducto);
-      console.log(data)
     });
 
     this.ubicacionproducto.obtenerUbicacionConMasProductos().subscribe(data=>{
       this.productoubicacion=data['ubicaciones_mas_productos'];
-      console.log('prueba2',this.productoubicacion);
       
     });
 
     this.proveedorlote.obtenerProveedorConMasLotes().subscribe(data=>{
-      this.loteproveedor=data['proveedores'],[0];
-      console.log(this.loteproveedor)
-      console.log(data)
+      this.loteproveedor=data['proveedores'];
+      
     });
 
     this.caducarlote.obtenerLotesProximosACaducar().subscribe(data=>{

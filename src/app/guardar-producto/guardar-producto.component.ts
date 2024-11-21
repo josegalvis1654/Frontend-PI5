@@ -87,7 +87,6 @@ export default class GuardarProductoComponent implements OnInit {
   }
 
   Guardar() {
-    console.log(this.ProductoForm.value);
     this.productoservice.crearProducto(this.ProductoForm.value).subscribe({
         next: (response:any) => {
             // Agregar el nuevo lote a la lista local con los datos de la respuesta

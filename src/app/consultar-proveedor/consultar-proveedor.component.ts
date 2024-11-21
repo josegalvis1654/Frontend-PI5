@@ -30,7 +30,6 @@ export default class ConsultarProveedorComponent implements OnInit{
     this.proveedorservice.getProveedores().subscribe(data =>{
       this.data =data;
       this.infomostrar = this.data;
-      console.log(this.data);
     })
   }
   

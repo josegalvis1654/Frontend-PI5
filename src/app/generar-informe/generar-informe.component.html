@@ -58,11 +58,14 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Producto Con Mas Ubicacicion
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ubicacion con mas Producto
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000
-                                    <li>{{productoubicacion.ubicacion__ubicacion}}</li>
-                                    {{productoubicacion.total_productos}}
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <ul>
+                                        <li *ngFor="let item of productoubicacion" class="list-style-type-none">Ubicacion: {{item.ubicacion__ubicacion}}<br>Total Productos: {{item.total_productos}}</li>
+                                    </ul>
+                                    
+                                    
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -82,8 +85,12 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Proveedor Con Mas Lotes</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{loteproveedor.nombre}}
-                                    {{loteproveedor.total_lotes}}
+                                    <ul>
+                                        <li *ngFor="let item of loteproveedor">
+                                            Proveedor: {{item.nombre}} <br>
+                                            Total Lotes: {{item.total_lotes}}
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -101,7 +108,7 @@
         <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
@@ -118,7 +125,7 @@
             </div>
 
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-12 col-md-12 mb-12">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -126,7 +133,12 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Lotes a Caducar</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    
+                                    <li *ngFor="let item of caducadolote">
+                                        Lote :{{item.id}}
+                                        Producto:{{item.producto__nombre}}
+                                        Caducidad:{{item.fechacaducidad}}
+                                        
+                                    </li>
                                 </div>
                             </div>
                             <div class="col-auto">
