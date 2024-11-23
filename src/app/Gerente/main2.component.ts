@@ -23,7 +23,7 @@ export  default class Main2Component implements OnInit {
   ngOnInit(){
     this.notificaciones.obtenerCantidadTotalProductos().subscribe(data=>{
       this.notificacion=data;
-
+      console.log(data);
     });
     this.notificaciones.obtenerLotesVencen().subscribe(data=>{
       this.noti=data;
